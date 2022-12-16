@@ -68,3 +68,23 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+///////////////////////////////////////////////////////////
+
+DOM 변화 트리거는 개별 js파일로 구분하는것이 아닌 컴포넌트 내 onClick, onChange, state등을 이용.
+
+* 각 페이지는 개별 컴포넌트 파일로 구분한다.
+- App.js안에 import해서 사용. 
+- ex) index.js / calendar.js / setting.js 등.
+
+<nav />
+1. 아이콘을 클릭하면 해당 페이지를 호출, 렌더링한다.
+2. 사용자 정보 표시
+- 사진
+- 닉네임 정보
+
+<util />
+1. 날씨정보 표시(API)
+- 날씨상태에 따라 아이콘 변경
+- 
+2. 현재시간 표시(완료)
