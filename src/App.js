@@ -1,9 +1,13 @@
-//import './App.css';
+import './App.css';
 // import {useState} from 'react';
 import React from "react";
 import {Routes, Route, Link} from "react-router-dom";
+import Main from "./pages/main";
 import Timer from "./pages/timer";
-import Watch from "./pages/watch";
+import Weather from "./pages/weather";
+import CheckList from './pages/list';
+
+
 
 
 
@@ -11,29 +15,29 @@ import Watch from "./pages/watch";
 function Head(){
   return(
     <header>
-      <nav className="e">
-        <Link to="/">Home</Link>
+      <nav id="nav">
+        <Link to="/">Alarm</Link>
         <Link to="/timer">Timer</Link>
-        <Link to="/watch">Watch</Link>
+        <Link to="/list">CheckList</Link>
+        <Link to="/weather">Weather</Link>
       </nav>
     </header>
   )
 }
-function Main(){
-  return(
-    <section>메인</section>
-  )
-}
+
 
 function App() {
   return (
     <>
       <Head></Head>
+        <div id="contents">
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="/timer" element={<Timer />}></Route>
-          <Route path="/watch" element={<Watch />}></Route>
+          <Route path="/list" element={<CheckList />}></Route>
+          <Route path="/weather" element={<Weather />}></Route>
         </Routes>
+        </div>
     </>
   );
 }

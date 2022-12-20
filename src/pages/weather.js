@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Timer(){
+function Weather(){
     return(
         <section>
-      <h1>타이머</h1>
+      <h1>날씨/시간</h1>
       <div>
         
       </div>
@@ -11,4 +11,4 @@ function Timer(){
     )
 }
 
-export default Timer;
+export default Weather
