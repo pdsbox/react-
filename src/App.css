@@ -280,6 +280,11 @@ section:first-of-type{
 
 
 /*메인*/
+#mainContent{
+    border:10px solid green;
+    max-height:90vh;
+    overflow:auto;
+}
 #mainContent button{
     background:transparent;
     border:1px solid #999;
@@ -289,4 +294,57 @@ section:first-of-type{
     background:var(--primary-color);
     border:1px solid #fff;
     color:#fff;
+}
+.alarmBlock{
+    width:80%;
+    height:100px;
+    padding:25px;
+    box-sizing: border-box;
+    text-align:center;
+    margin:3px auto;
+    color:var(--primary-color);
+    border:3px solid var(--primary-color);
+    border-radius:20px;
+    font-weight:600;
+    font-size:1.2rem;
+}
+
+
+/*메인-CREATE*/
+#mainCreate{
+    height:80vh;
+}
+#selectBox{
+    height:20vh;
+    line-height:20vh;
+}
+#selectBox select{
+        -webkit-appearance: none;
+           -moz-appearance: none;
+                appearance: none;
+                outline-style:none;
+    width:10%;
+    border:0;
+    border-bottom:2px dotted var(--primary-text-color);
+    box-sizing: border-box;
+    text-align:center;
+    font-size:2rem;
+    margin:0 15px;
+}
+/* #selectBox select:focus,
+#selectBox select:active,
+#selectBox select:checked
+{
+    outline-style:none;
+    border:0;
+} */
+#selectBox span:first-of-type{
+    margin-right:10px;
+}
+#selectBox span{
+    font-size:1.3rem;
+}
+#memoBox input{
+    min-width:200px;
+    width:15vw;
 }

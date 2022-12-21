@@ -1,15 +1,10 @@
 import './App.css';
-// import {useState} from 'react';
 import React from "react";
 import {Routes, Route, Link} from "react-router-dom";
 import Main from "./pages/main";
 import Timer from "./pages/timer";
 import Weather from "./pages/weather";
 import CheckList from './pages/list';
-
-
-
-
 
 
 function Head(){
@@ -27,6 +22,7 @@ function Head(){
 
 
 function App() {
+
   return (
     <>
       <Head></Head>

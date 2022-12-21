@@ -2,12 +2,20 @@ import React, {useState, useEffect, useRef} from 'react';
 
 
 function MainHead(){
-  const [time_hour, setHour] = useState('');
-  const [time_min, setMinute] = useState('');
-  const [time_second, setSecond] = useState('');
-  const [time_day, setDay] = useState('');
-  const [time_month, setMonth] = useState('');
-  const [time_year, setYear] = useState('');
+  const date = new Date();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+    let day = date.getDate();
+    let month = date.getMonth();
+    let year = date.getFullYear();
+
+  const [time_hour, setHour] = useState(hour);
+  const [time_min, setMinute] = useState(minute);
+  const [time_second, setSecond] = useState(second);
+  const [time_day, setDay] = useState(day);
+  const [time_month, setMonth] = useState(month);
+  const [time_year, setYear] = useState(year);
 
 
   const useInterval = (callback, delay) => {
@@ -51,42 +59,118 @@ function MainHead(){
     </div>
   )
 }
-function MainRead(){
-  return(
-  <div>
-    <button type="button" onClick={(event)=>{
-      event.defaultPrevented();
 
-    }}>ADD</button>
+function MainRead(props){
+  const readList = [];
+  for (let i = 0; i < props.alarm.length; i++){
+    let alm = props.alarm[i];
+    readList.push(
+      <div className="alarmBlock" key={alm.id}>
+        <div>내용:{alm.memo}</div>
+        <div>시간:{alm.hour} {alm.min}</div>
+      </div>
+    )
+  }
+
+  return(
+  <div id="mainRead">
+    <button type="button" onClick={(event)=>{
+      event.preventDefault();
+      props.goCreate();
+    }}>CREATE</button>
+
+    {readList}
+    
   </div>
   )
 }
-function MainCreate(){
+
+
+function MainCreate(props){
+  const listTime = [];
+  for (let i = 0; i < 24; i++){
+    listTime.push(
+      <option key={i} value={i}>{i}</option>
+    )
+  }
+  const listMinute = [];
+  for (let i = 0; i < 60; i++){
+    listMinute.push(
+      <option value={i}>{i}</option>
+    )
+  }
+
   return(
-    <div>323</div>
+    <div id="mainCreate">
+      <form onSubmit={(event)=>{
+        event.preventDefault();
+        const memo = event.target.memo.value;
+        const selTime = event.target.time.value;
+        const selHour = (selTime < 10 ? `0${selTime}` : selTime)+"시"
+        const selMinute = event.target.minute.value;
+        const selMin = (selMinute < 10 ? `0${selMinute}` : selMinute)+"분";
+        props.onCreate(memo, selHour, selMin);
+      }}>
+        <div id="selectBox">
+          <select name="time" required>
+            {listTime}
+          </select>
+          <span>시</span>
+          <select name="minute" required>
+            {listMinute}
+          </select>
+          <span>분</span>
+        </div>
+        <div id="memoBox">
+          <input type="text" name="memo" placeholder='내용을 입력하세요.'></input>
+        </div>
+        <button type="button" onClick={(event)=>{
+        event.preventDefault();
+        props.goRead();
+      }}>BACK</button>
+      <button type="submit">ADD</button>
+        
+      </form>
+
+    </div>
+    
   )
 }
 
 
 function Main(){
+  const [mode, setMode] = useState('READ');
+  // const [id, setId] = useState(null);
+  const [nextId, setNextId] = useState(3);
+  const [alarm, setAlarm] = useState([
+    {id:1, memo:'기상', hour:'07시', min:'30분'},
+    {id:2, memo:'아침먹기', hour:'08시', min:'15분'}
+  ]);
 
-  // const [mode, setMode] = useState('READ');
 
-
-  // let content = null;
-  // if(mode === 'READ'){
-  //   content = <MainRead></MainRead>
-  // }else if(mode === 'CREATE'){
-  //   content = <MainCreate></MainCreate>
-  // }
-
+  let content = null;
+  if(mode === 'READ'){
+     content = <MainRead alarm={alarm} goCreate={()=>{
+      setMode('CREATE');
+     }}> 
+      
+     </MainRead>
+  }else if(mode === 'CREATE'){
+     content = <MainCreate goRead={()=>{setMode("READ");}} onCreate={(_memo, _selHour, _selMin)=>{
+      const newAlarm = {id:nextId, memo:_memo, hour:_selHour, min:_selMin};
+      const newAlarms = [...alarm]
+      newAlarms.push(newAlarm);
+      setAlarm(newAlarms);
+      setNextId(nextId+1);
+      setMode('READ');
+     }}></MainCreate>
+  }
 
     return(
       <section>
         <MainHead></MainHead>
         <div id="mainContent">
-          <MainRead></MainRead>
-          <MainCreate></MainCreate>
+          {content}
         </div>
 
       </section>
