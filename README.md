@@ -9,4 +9,14 @@
     - State로 READ 상태, CREATE 상태 구분
     Main페이지 CREATE 일부 구현.
     - 리스트에 객체 정보 push
+    참고 : https://opentutorials.org/course/4900/31269
 </22.12.21>
+
+<22.12.23>
+    - json-server 설치
+    - db(.json) 세팅
+    - map()으로 데이터 바인딩(기존 for문+push로 렌더링에 보여줄 변수 따로 지정해서 데이터 저장하는 방식.)
+</22.12.23>
+
+
+데이터 정보(DB) : .json

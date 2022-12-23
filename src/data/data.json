@@ -1,0 +1,22 @@
+{
+    "alarm" : [
+        {"id":1, "memo":"기상", "hour":"07시", "min":"30분"},
+        {"id":2, "memo":"아침먹기", "hour":"08시", "min":"15분"},
+        {"id":3, "memo":"간식먹기", "hour":"10시", "min":"30분"}
+    ],
+
+    "schedule" : [
+        {
+            "id" : 1, 
+            "day" : 0,
+            "title" : "세면", 
+            "isCheck" : "false"
+        },
+        {
+            "id" : 2, 
+            "day" : 2,
+            "title" : "산책하기", 
+            "isCheck" : "false"
+        }
+    ]
+}

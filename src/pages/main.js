@@ -1,4 +1,6 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState} from 'react';
+import useInterval from '../hooks/useInterval.js';
+import db from '../data/data.json';
 
 
 function MainHead(){
@@ -10,28 +12,14 @@ function MainHead(){
     let month = date.getMonth();
     let year = date.getFullYear();
 
-  const [time_hour, setHour] = useState(hour);
-  const [time_min, setMinute] = useState(minute);
-  const [time_second, setSecond] = useState(second);
-  const [time_day, setDay] = useState(day);
-  const [time_month, setMonth] = useState(month);
-  const [time_year, setYear] = useState(year);
+  const [now_hour, setHour] = useState(hour);
+  const [now_min, setMinute] = useState(minute);
+  const [now_second, setSecond] = useState(second);
+  const [now_day, setDay] = useState(day);
+  const [now_month, setMonth] = useState(month);
+  const [now_year, setYear] = useState(year);
 
-
-  const useInterval = (callback, delay) => {
-    const savedCallback = useRef();
-    useEffect(() => {
-        savedCallback.current = callback;
-    });
-    useEffect(() => {
-        const tick = () => {
-            savedCallback.current();
-        }
-        const timerId = setInterval(tick, delay);
-        return () => clearInterval(timerId);
-    }, [delay]);
-}
-
+ 
   useInterval(()=>{
 
     const date = new Date();
@@ -54,7 +42,7 @@ function MainHead(){
   return(
     <div>
       <h1>알람</h1>
-      <p>현재 시각 : {time_year}.{time_month}.{time_day} {time_hour < 10 ? `0${time_hour}` : time_hour}:{time_min < 10 ? `0${time_min}` : time_min}:{time_second < 10 ? `0${time_second}` : time_second}</p>
+      <p>현재 시각 : {now_year}.{now_month}.{now_day} {now_hour < 10 ? `0${now_hour}` : now_hour}:{now_min < 10 ? `0${now_min}` : now_min}:{now_second < 10 ? `0${now_second}` : now_second}</p>
       <h2>다음 알람까지 : </h2>
     </div>
   )
@@ -65,10 +53,10 @@ function MainRead(props){
   for (let i = 0; i < props.alarm.length; i++){
     let alm = props.alarm[i];
     readList.push(
-      <div className="alarmBlock" key={alm.id}>
-        <div>내용:{alm.memo}</div>
-        <div>시간:{alm.hour} {alm.min}</div>
-      </div>
+        <div className="alarmBlock" key={alm.id}>
+          <div>내용:{alm.memo}</div>
+          <div>시간:{alm.hour} {alm.min}</div>
+        </div>
     )
   }
 
@@ -80,7 +68,14 @@ function MainRead(props){
     }}>CREATE</button>
 
     {readList}
-    
+    <div className="mapData">
+          {db.alarm.map(data => ( //map에 쓰인 인자 data는 db.alarm이 됨. db.alarm의 갯수(length)만큼 생성.
+            <div key={data.id}>
+              <p><span>{data.memo}</span></p> 
+              <div>{data.hour} {data.min}</div>
+            </div>
+          ))}
+        </div>
   </div>
   )
 }
@@ -165,12 +160,13 @@ function Main(){
       setMode('READ');
      }}></MainCreate>
   }
-
+  console.log(db);
     return(
       <section>
         <MainHead></MainHead>
         <div id="mainContent">
           {content}
+          
         </div>
 
       </section>
