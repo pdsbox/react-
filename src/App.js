@@ -1,14 +1,14 @@
 import './App.css';
 import React from "react";
-import {Routes, Route, Link} from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Main from "./pages/main";
 import Timer from "./pages/timer";
 import Weather from "./pages/weather";
 import CheckList from './pages/list';
 
 
-function Head(){
-  return(
+function Head() {
+  return (
     <header>
       <nav id="nav">
         <Link to="/">Alarm</Link>
@@ -26,14 +26,14 @@ function App() {
   return (
     <>
       <Head></Head>
-        <div id="contents">
+      <div id="contents">
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="/timer" element={<Timer />}></Route>
           <Route path="/list" element={<CheckList />}></Route>
           <Route path="/weather" element={<Weather />}></Route>
         </Routes>
-        </div>
+      </div>
     </>
   );
 }
