@@ -20,7 +20,6 @@ function Head() {
   )
 }
 
-
 function App() {
 
   return (

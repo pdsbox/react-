@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useInterval from '../hooks/useInterval.js';
 import db from '../data/data.json';
 
@@ -19,9 +19,7 @@ function MainHead() {
 	const [now_month, setMonth] = useState(month);
 	const [now_year, setYear] = useState(year);
 
-
 	useInterval(() => {
-
 		const date = new Date();
 		let hour = date.getHours();
 		let minute = date.getMinutes();
@@ -48,18 +46,44 @@ function MainHead() {
 	)
 }
 
+
 function MainRead(props) {
 	function delEvent(id) {
 		if (window.confirm("삭제하시겠습니까?")) {
 			fetch(`http://localhost:3001/alarm/${id}`, {
 				method: "DELETE",
-			}).then((res) => {
-				if (res.ok) {
-					alert("삭제되었습니다.")
-				}
 			})
+				.then((res) => {
+					if (res.ok) {
+						alert("삭제되었습니다.")
+					}
+				})
 		}
 	}
+
+	//숫자 정리하기 위한 코드
+	let alData = [];
+	for (let i = 0; i < db.alarm.length; i++) {
+		alData.push(
+			{
+				"id": db.alarm[i].id,
+				"memo": db.alarm[i].memo,
+				"hour": (db.alarm[i].hour < 10 ? `0${db.alarm[i].hour}` : db.alarm[i].hour),
+				"min": (db.alarm[i].min < 10 ? `0${db.alarm[i].min}` : db.alarm[i].min)
+			}
+		);
+
+	}
+	// useEffect((id) => {
+	// 	fetch(`http://localhost:3001/alarm/${id}`, {
+	// 		method: "GET",
+	// 		headers: {
+	// 			"Content-Type": "application/json",
+	// 		},
+	// 	})
+	// 		.then((response) => response.json())
+	// 		.then((data) => { console.log(data); props.goData(data); });
+	// }, [])
 
 	return (
 		<div id="mainRead">
@@ -69,13 +93,17 @@ function MainRead(props) {
 			}}>CREATE</button>
 
 			<div className="mapData">
-				{db.alarm.map(data => ( //map에 쓰인 인자 data는 db.alarm이 됨. db.alarm의 갯수(length)만큼 생성.
+				{alData.map((data) => ( //map에 쓰인 인자 data는 db.alarm이 됨. db.alarm의 갯수(length)만큼 생성.
 					<div key={data.id} >
 						<p><span>{data.memo}</span></p>
-						<div>{data.hour} {data.min}</div>
+						<div>{data.hour}시 {data.min}분</div>
 						<button onClick={(event) => {
 							event.preventDefault();
+							props.goData(data.id);
+							console.log("이동합니다");
 							props.goUpdate();
+
+
 						}}>UPDATE</button>
 						<button onClick={(event) => {
 							event.preventDefault();
@@ -94,13 +122,13 @@ function MainCreate(props) {
 	const listTime = [];
 	for (let i = 0; i < 24; i++) {
 		listTime.push(
-			<option key={i} value={i}>{i}</option>
+			<option value={i}>{i}</option>
 		)
 	}
 	const listMinute = [];
 	for (let i = 0; i < 60; i++) {
 		listMinute.push(
-			<option key={i} value={i}>{i}</option>
+			<option value={i}>{i}</option>
 		)
 	}
 
@@ -110,10 +138,7 @@ function MainCreate(props) {
 				event.preventDefault();
 				const memo = event.target.memo.value;
 				const selTime = event.target.time.value;
-				const selHour = (selTime < 10 ? `0${selTime}` : selTime) + "시"
 				const selMinute = event.target.minute.value;
-				const selMin = (selMinute < 10 ? `0${selMinute}` : selMinute) + "분";
-				props.onCreate();
 				fetch('http://localhost:3001/alarm', {
 					method: "POST",
 					headers: {
@@ -122,10 +147,11 @@ function MainCreate(props) {
 					body: JSON.stringify({
 						id: null,
 						memo: memo,
-						hour: selHour,
-						min: selMin
+						hour: selTime,
+						min: selMinute
 					}),
 				}).then((res) => res.json())
+				props.goRead();
 			}}>
 				<div id="selectBox">
 					<select name="time" required>
@@ -154,17 +180,41 @@ function MainCreate(props) {
 }
 
 function MainUpdate(props) {
+	console.log("왔다", props.upData);
+	const [textValue, setTextValue] = useState(0);
+	console.log(textValue);
+
+
+
 	const listTime = [];
 	for (let i = 0; i < 24; i++) {
-		listTime.push(
-			<option key={i} value={i}>{i}</option>
-		)
+		//아이디와 i가 같다면 selected 설정
+		if (props.upData.hour == i) {
+			listTime.push(
+				<option value={i} selected>{i}</option>
+			)
+		} else {
+			listTime.push(
+				<option value={i}>{i}</option>
+			)
+		}
 	}
 	const listMinute = [];
 	for (let i = 0; i < 60; i++) {
-		listMinute.push(
-			<option key={i} value={i}>{i}</option>
-		)
+		//아이디와 i가 같다면 selected 설정
+		if (props.upData.min == i) {
+			listMinute.push(
+				<option value={i} selected>{i}</option>
+			)
+		} else {
+			listMinute.push(
+				<option value={i}>{i}</option>
+			)
+		}
+	}
+	function changeEvent(e) {
+		setTextValue(e.target.value);
+		console.log(textValue);
 	}
 	return (
 		<div id="mainUpdation">
@@ -172,20 +222,18 @@ function MainUpdate(props) {
 				event.preventDefault();
 				const memo = event.target.memo.value;
 				const selTime = event.target.time.value;
-				const selHour = (selTime < 10 ? `0${selTime}` : selTime) + "시"
 				const selMinute = event.target.minute.value;
-				const selMin = (selMinute < 10 ? `0${selMinute}` : selMinute) + "분";
-				props.onUpdate(memo, selHour, selMin);
-				// fetch(`http://localhost:3001/alarm/${id}}`, {
+				props.onUpdate();
+				//수정 로직, 아이디만 받아서 넘기면 됨
+				// fetch(`http://localhost:3001/alarm/${props.upData.id}`, {
 				// 	method: "PUT",
 				// 	headers: {
 				// 		"Content-Type": "application/json",
 				// 	},
 				// 	body: JSON.stringify({
-				// 		id: null,
 				// 		memo: memo,
-				// 		hour: selHour,
-				// 		min: selMin
+				// 		hour: selTime,
+				// 		min: selMinute
 				// 	}),
 				// }).then((res) => res.json())
 			}}>
@@ -200,7 +248,7 @@ function MainUpdate(props) {
 					<span>분</span>
 				</div>
 				<div id="memoBox">
-					<input type="text" name="memo" placeholder='내용을 입력하세요.'></input>
+					<input type="text" name="memo" onChange={changeEvent} placeholder='내용을 입력하세요.' value={textValue}></input>
 				</div>
 				<button type="button" onClick={(event) => {
 					event.preventDefault();
@@ -208,9 +256,9 @@ function MainUpdate(props) {
 				}}>BACK</button>
 				<button type="submit">UPDATE</button>
 
-			</form>
+			</form >
 
-		</div>
+		</div >
 	)
 }
 
@@ -223,12 +271,14 @@ function Main() {
 	// 	{ id: 1, memo: '기상', hour: '07시', min: '30분' },
 	// 	{ id: 2, memo: '아침먹기', hour: '08시', min: '15분' }
 	// ]);
-
+	const [getId, setGetId] = useState(null);
 
 	let content = null;
 
 	if (mode === 'READ') {
-		content = <MainRead goCreate={() => { setMode('CREATE') }} goUpdate={() => { setMode('UPDATE') }}></MainRead >
+		content = <MainRead goCreate={() => { setMode('CREATE') }}
+			goUpdate={() => { setMode("UPDATE"); }}
+			/*goData={(id) => { console.log("고데이터");  }}*/></MainRead >
 	}
 	else if (mode === 'CREATE') {
 		content = <MainCreate
@@ -240,7 +290,7 @@ function Main() {
 			}}></MainCreate>
 	}
 	else if (mode === 'UPDATE') {
-		content = <MainUpdate goRead={() => { setMode("READ") }} onUpdate={() => { setMode('READ') }} ></MainUpdate>
+		content = <MainUpdate /*upData={getId}*/ goRead={() => { setMode("READ") }} onUpdate={() => { setMode('READ') }} ></MainUpdate>
 	}
 	return (
 		<section>
