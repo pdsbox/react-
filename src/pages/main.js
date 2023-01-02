@@ -233,22 +233,25 @@ function MainUpdate(props) {
 		<div id="mainUpdation">
 			<form onSubmit={(event) => {
 				event.preventDefault();
-				const memo = event.target.memo.value;
-				const selTime = event.target.time.value;
-				const selMinute = event.target.minute.value;
-				props.onUpdate();
+				if (window.confirm("수정하시겠습니까?")) {
+					const memo = event.target.memo.value;
+					const selTime = event.target.time.value;
+					const selMinute = event.target.minute.value;
+					fetch(`http://localhost:3001/alarm/${props.upData.id}`, {
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							memo: memo,
+							hour: selTime,
+							min: selMinute
+						}),
+					}).then((res) => res.json())
+					props.onUpdate();
+				} else { }
 
-				fetch(`http://localhost:3001/alarm/${props.upData.id}`, {
-					method: "PUT",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						memo: memo,
-						hour: selTime,
-						min: selMinute
-					}),
-				}).then((res) => res.json())
+
 			}}>
 				<div id="selectBox">
 					<select name="time" defaultValue={hour}>
