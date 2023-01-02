@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useInterval from '../hooks/useInterval.js';
 import db from '../data/data.json';
 
@@ -16,7 +16,7 @@ function MainHead() {
 	const [now_min, setMinute] = useState(minute);
 	const [now_second, setSecond] = useState(second);
 	const [now_day, setDay] = useState(day);
-	const [now_month, setMonth] = useState(month);
+	const [now_month, setMonth] = useState(month + 1);
 	const [now_year, setYear] = useState(year);
 
 	useInterval(() => {
@@ -32,7 +32,7 @@ function MainHead() {
 		setMinute(minute);
 		setSecond(second);
 		setDay(day);
-		setMonth(month);
+		setMonth(month + 1);
 		setYear(year);
 
 	}, 1000);
@@ -48,6 +48,11 @@ function MainHead() {
 
 
 function MainRead(props) {
+	// const [uData, setUData] = useState([]);
+	// useEffect(() => {
+	// 	fetch()
+	// }, []);
+
 	function delEvent(id) {
 		if (window.confirm("삭제하시겠습니까?")) {
 			fetch(`http://localhost:3001/alarm/${id}`, {
@@ -74,16 +79,6 @@ function MainRead(props) {
 		);
 
 	}
-	// useEffect((id) => {
-	// 	fetch(`http://localhost:3001/alarm/${id}`, {
-	// 		method: "GET",
-	// 		headers: {
-	// 			"Content-Type": "application/json",
-	// 		},
-	// 	})
-	// 		.then((response) => response.json())
-	// 		.then((data) => { console.log(data); props.goData(data); });
-	// }, [])
 
 	return (
 		<div id="mainRead">
@@ -99,10 +94,8 @@ function MainRead(props) {
 						<div>{data.hour}시 {data.min}분</div>
 						<button onClick={(event) => {
 							event.preventDefault();
-							props.goData(data.id);
-							console.log("이동합니다");
+							props.goData(data);
 							props.goUpdate();
-
 
 						}}>UPDATE</button>
 						<button onClick={(event) => {
@@ -122,13 +115,13 @@ function MainCreate(props) {
 	const listTime = [];
 	for (let i = 0; i < 24; i++) {
 		listTime.push(
-			<option value={i}>{i}</option>
+			<option key={i} value={i}>{i}</option>
 		)
 	}
 	const listMinute = [];
 	for (let i = 0; i < 60; i++) {
 		listMinute.push(
-			<option value={i}>{i}</option>
+			<option key={i} value={i}>{i}</option>
 		)
 	}
 
@@ -180,42 +173,62 @@ function MainCreate(props) {
 }
 
 function MainUpdate(props) {
-	console.log("왔다", props.upData);
-	const [textValue, setTextValue] = useState(0);
-	console.log(textValue);
+	// console.log("왔다", props.upData);
+	const hour = Number(props.upData.hour);
+	const min = Number(props.upData.min);
+	const [values, setValues] = useState(props.upData.memo);
+	// const [values, setValues] = useState(null);
+	// const [hour, setHour] = useState(0);
+	// const [min, setMin] = useState(0);
 
 
+	// useEffect(() => {
+	// 	console.log("세팅", values, hour, min);
+	// 	fetch(`http://localhost:3001/alarm/${props.upData.id}`, {
+	// 	}).then((res) => res.json())
+	// 		.then((data) => {
+	// 			setValues(data.memo);
+	// 			setHour(data.hour);
+	// 			setMin(data.min);
+	// 		});
+	// }, []);
 
 	const listTime = [];
 	for (let i = 0; i < 24; i++) {
+		listTime.push(
+			<option key={i} value={i}>{i}</option>
+		)
 		//아이디와 i가 같다면 selected 설정
-		if (props.upData.hour == i) {
-			listTime.push(
-				<option value={i} selected>{i}</option>
-			)
-		} else {
-			listTime.push(
-				<option value={i}>{i}</option>
-			)
-		}
+		// 	if (hour === i) {
+		// 		listTime.push(
+		// 			<option key={i} defaultValue selected>{i}</option>
+		// 		)
+		// 	} else {
+		// 		listTime.push(
+		// 			<option key={i} value={i}>{i}</option>
+		// 		)
+		// 	}
 	}
 	const listMinute = [];
 	for (let i = 0; i < 60; i++) {
+		listMinute.push(
+			<option key={i} value={i}>{i}</option>
+		)
 		//아이디와 i가 같다면 selected 설정
-		if (props.upData.min == i) {
-			listMinute.push(
-				<option value={i} selected>{i}</option>
-			)
-		} else {
-			listMinute.push(
-				<option value={i}>{i}</option>
-			)
-		}
+		// if (min === i) {
+		// 	listMinute.push(
+		// 		<option key={i} defaultValue selected>{i}</option>
+		// 	)
+		// } else {
+		// 	listMinute.push(
+		// 		<option key={i} value={i}>{i}</option>
+		// 	)
+		// }
 	}
 	function changeEvent(e) {
-		setTextValue(e.target.value);
-		console.log(textValue);
+		setValues(e.target.value);
 	}
+
 	return (
 		<div id="mainUpdation">
 			<form onSubmit={(event) => {
@@ -224,31 +237,31 @@ function MainUpdate(props) {
 				const selTime = event.target.time.value;
 				const selMinute = event.target.minute.value;
 				props.onUpdate();
-				//수정 로직, 아이디만 받아서 넘기면 됨
-				// fetch(`http://localhost:3001/alarm/${props.upData.id}`, {
-				// 	method: "PUT",
-				// 	headers: {
-				// 		"Content-Type": "application/json",
-				// 	},
-				// 	body: JSON.stringify({
-				// 		memo: memo,
-				// 		hour: selTime,
-				// 		min: selMinute
-				// 	}),
-				// }).then((res) => res.json())
+
+				fetch(`http://localhost:3001/alarm/${props.upData.id}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						memo: memo,
+						hour: selTime,
+						min: selMinute
+					}),
+				}).then((res) => res.json())
 			}}>
 				<div id="selectBox">
-					<select name="time" required>
+					<select name="time" defaultValue={hour}>
 						{listTime}
 					</select>
 					<span>시</span>
-					<select name="minute" required>
+					<select name="minute" defaultValue={min}>
 						{listMinute}
 					</select>
 					<span>분</span>
 				</div>
 				<div id="memoBox">
-					<input type="text" name="memo" onChange={changeEvent} placeholder='내용을 입력하세요.' value={textValue}></input>
+					<input type="text" name="memo" onChange={changeEvent} placeholder='내용을 입력하세요.' value={values}></input>
 				</div>
 				<button type="button" onClick={(event) => {
 					event.preventDefault();
@@ -271,14 +284,16 @@ function Main() {
 	// 	{ id: 1, memo: '기상', hour: '07시', min: '30분' },
 	// 	{ id: 2, memo: '아침먹기', hour: '08시', min: '15분' }
 	// ]);
-	const [getId, setGetId] = useState(null);
-
+	const [getRead, setRead] = useState([]);
+	function goData(data) {
+		setRead(data);
+	}
 	let content = null;
 
 	if (mode === 'READ') {
 		content = <MainRead goCreate={() => { setMode('CREATE') }}
 			goUpdate={() => { setMode("UPDATE"); }}
-			/*goData={(id) => { console.log("고데이터");  }}*/></MainRead >
+			goData={(fromRead) => { goData(fromRead); }}></MainRead >
 	}
 	else if (mode === 'CREATE') {
 		content = <MainCreate
@@ -290,7 +305,7 @@ function Main() {
 			}}></MainCreate>
 	}
 	else if (mode === 'UPDATE') {
-		content = <MainUpdate /*upData={getId}*/ goRead={() => { setMode("READ") }} onUpdate={() => { setMode('READ') }} ></MainUpdate>
+		content = <MainUpdate upData={getRead} goRead={() => { setMode("READ") }} onUpdate={() => { setMode('READ') }} ></MainUpdate>
 	}
 	return (
 		<section>
