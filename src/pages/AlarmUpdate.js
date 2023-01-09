@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function MainUpdate(props) {
+function AlarmUpdate(props) {
     // console.log("왔다", props.upData);
     const hour = Number(props.upData.hour);
     const min = Number(props.upData.min);
@@ -21,9 +21,9 @@ function MainUpdate(props) {
     // 		});
     // }, []);
 
-    const listTime = [];
+    const selectHour = [];
     for (let i = 0; i < 24; i++) {
-        listTime.push(
+        selectHour.push(
             <option key={i} value={i}>{i}</option>
         )
         //아이디와 i가 같다면 selected 설정
@@ -37,9 +37,9 @@ function MainUpdate(props) {
         // 		)
         // 	}
     }
-    const listMinute = [];
+    const selectMin = [];
     for (let i = 0; i < 60; i++) {
-        listMinute.push(
+        selectMin.push(
             <option key={i} value={i}>{i}</option>
         )
         //아이디와 i가 같다면 selected 설정
@@ -84,11 +84,11 @@ function MainUpdate(props) {
             }}>
                 <div id="selectBox">
                     <select name="time" defaultValue={hour}>
-                        {listTime}
+                        {selectHour}
                     </select>
                     <span>시</span>
                     <select name="minute" defaultValue={min}>
-                        {listMinute}
+                        {selectMin}
                     </select>
                     <span>분</span>
                 </div>
@@ -107,4 +107,4 @@ function MainUpdate(props) {
     )
 }
 
-export default MainUpdate
+export default AlarmUpdate

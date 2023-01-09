@@ -1,7 +1,7 @@
 import React from 'react';
 import db from '../data/data.json';
 
-function MainRead(props) {
+function AlarmRead(props) {
     // const [uData, setUData] = useState([]);
     // useEffect(() => {
     // 	fetch()
@@ -32,6 +32,7 @@ function MainRead(props) {
             }
         );
     }
+    //시간순으로 리스트 정렬
     alData.sort((a, b) => {
         return a.hour - b.hour;
     })
@@ -42,7 +43,6 @@ function MainRead(props) {
             return 0;
         }
     })
-    console.log(alData);
 
     return (
         <div id="mainRead">
@@ -60,7 +60,6 @@ function MainRead(props) {
                             event.preventDefault();
                             props.goData(data);
                             props.goUpdate();
-
                         }}>UPDATE</button>
                         <button onClick={(event) => {
                             event.preventDefault();
@@ -74,4 +73,4 @@ function MainRead(props) {
     )
 }
 
-export default MainRead
+export default AlarmRead

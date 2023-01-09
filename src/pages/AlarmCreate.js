@@ -1,16 +1,16 @@
 import React from 'react';
 
 
-function MainCreate(props) {
-    const listTime = [];
+function AlarmCreate(props) {
+    const selectHour = [];
     for (let i = 0; i < 24; i++) {
-        listTime.push(
+        selectHour.push(
             <option key={i} value={i}>{i}</option>
         )
     }
-    const listMinute = [];
+    const selectMin = [];
     for (let i = 0; i < 60; i++) {
-        listMinute.push(
+        selectMin.push(
             <option key={i} value={i}>{i}</option>
         )
     }
@@ -38,11 +38,11 @@ function MainCreate(props) {
             }}>
                 <div id="selectBox">
                     <select name="time" required>
-                        {listTime}
+                        {selectHour}
                     </select>
                     <span>시</span>
                     <select name="minute" required>
-                        {listMinute}
+                        {selectMin}
                     </select>
                     <span>분</span>
                 </div>
@@ -62,4 +62,4 @@ function MainCreate(props) {
     )
 }
 
-export default MainCreate
+export default AlarmCreate

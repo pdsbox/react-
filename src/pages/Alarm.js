@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import db from '../data/data.json';
 
-import MainHead from './MainHead';
-import MainRead from './MainRead';
-import MainCreate from './MainCreate';
-import MainUpdate from './MainUpdate';
+import Nav from './Nav';
+import AlarmHead from './AlarmHead';
+import AlarmRead from './AlarmRead';
+import AlarmCreate from './AlarmCreate';
+import AlarmUpdate from './AlarmUpdate';
 
 
-function Main() {
+function Alarm() {
 	const [mode, setMode] = useState('READ');
 	// const [id, setId] = useState(null);
 	const [nextId, setNextId] = useState(db.alarm === null ? 1 : db.alarm.length);
@@ -22,32 +23,34 @@ function Main() {
 	let content = null;
 
 	if (mode === 'READ') {
-		content = <MainRead goCreate={() => { setMode('CREATE') }}
+		content = <AlarmRead goCreate={() => { setMode('CREATE') }}
 			goUpdate={() => { setMode("UPDATE"); }}
-			goData={(fromRead) => { goData(fromRead); }}></MainRead >
+			goData={(fromRead) => { goData(fromRead); }}></AlarmRead >
 	}
 	else if (mode === 'CREATE') {
-		content = <MainCreate
+		content = <AlarmCreate
 			goRead={() => { setMode("READ"); }}
 			onCreate={() => {
-
 				setNextId(nextId + 1);
 				setMode('READ');
-			}}></MainCreate>
+			}}></AlarmCreate>
 	}
 	else if (mode === 'UPDATE') {
-		content = <MainUpdate upData={getRead} goRead={() => { setMode("READ") }} onUpdate={() => { setMode('READ') }} ></MainUpdate>
+		content = <AlarmUpdate upData={getRead} goRead={() => { setMode("READ") }} onUpdate={() => { setMode('READ') }} ></AlarmUpdate>
 	}
 	return (
-		<section>
-			<MainHead></MainHead>
-			<div id="mainContent">
-				{content}
+		<>
+			<Nav></Nav>
+			<section>
+				<AlarmHead></AlarmHead>
+				<div id="mainContent">
+					{content}
 
-			</div>
+				</div>
 
-		</section>
+			</section>
+		</>
 	)
 }
 
-export default Main
+export default Alarm

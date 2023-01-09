@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useInterval from '../hooks/useInterval.js';
 
-function MainHead() {
+function AlarmHead() {
     const date = new Date();
     let hour = date.getHours();
     let minute = date.getMinutes();
@@ -38,10 +38,10 @@ function MainHead() {
     return (
         <div>
             <h1>알람</h1>
-            <p>현재 시각 : {now_year}.{now_month}.{now_day} {now_hour < 10 ? `0${now_hour}` : now_hour}:{now_min < 10 ? `0${now_min}` : now_min}:{now_second < 10 ? `0${now_second}` : now_second}</p>
+            <h2>현재 시각 : {now_year}.{now_month}.{now_day} {now_hour < 10 ? `0${now_hour}` : now_hour}:{now_min < 10 ? `0${now_min}` : now_min}:{now_second < 10 ? `0${now_second}` : now_second}</h2>
             <h2>다음 알람까지 : </h2>
         </div>
     )
 }
 
-export default MainHead
+export default AlarmHead
