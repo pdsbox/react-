@@ -13,8 +13,16 @@ img {
     vertical-align: top;
 }
 
+a {
+    color: #333;
+    text-decoration: none;
+}
 
-
+.flex {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
 
 
 
@@ -233,6 +241,143 @@ section:first-of-type{
     --primary-color: #282d33;
     --primary-text-color: #ddd;
 }
+
+
+/*인덱스*/
+#indexHead {
+    text-align: center;
+    padding: 60px 0;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size: 3rem;
+}
+
+.indexContainer {
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.indexContainer.first {
+    background: var(--primary-color);
+}
+
+.indexContainer.second {
+    background: var(--primary-text-color);
+}
+
+.indexBlock,
+.infoBlocks {
+    width: 25%;
+    height: calc(90vh - 120px);
+    max-height: 500px;
+    min-height: 360px;
+    border-right: 1px dotted var(--primary-text-color);
+    box-sizing: border-box;
+}
+
+.indexBlock:last-of-type,
+.infoBlocks:last-of-type {
+    border-right: 0;
+}
+
+.navBlocks {
+    margin: 20px 5%;
+    display: block;
+    color: var(--primary-color);
+    width: 90%;
+    height: 80%;
+    background: var(--primary-text-color);
+    /*BG : 범위 확인하기 위해 임시로 지정*/
+    position: relative;
+    overflow: hidden;
+}
+
+.navBlocks:hover h2 {
+    bottom: 60px;
+}
+
+.navBlocks:hover p {
+    bottom: 10px;
+    opacity: 1;
+}
+
+.navBlocks h2 {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 500;
+    font-size: 1.3rem;
+    transition: all .3s;
+}
+
+.navBlocks p {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: all .4s;
+    opacity: 0;
+
+}
+
+.indexBlock span {
+    color: var(--primary-text-color);
+    cursor: pointer;
+    text-align: right;
+}
+
+.indexBlock span:hover {
+    color: #fff;
+}
+
+.infoBlocks {
+    height: fit-content;
+    max-height: none;
+    min-height: auto;
+}
+
+
+
+/*인덱스-모달*/
+#modal {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 10000;
+}
+
+#modal>.modalBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modal>section {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 500px;
+    background-color: var(--primary-text-color);
+    color: var(--primary-color);
+}
+
+#modal>section>video {
+    width: 100%;
+    height: 100%;
+}
+
+
 
 /*네비게이션*/
 #nav {

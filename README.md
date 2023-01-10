@@ -76,3 +76,16 @@ EXTRA)
 
 - 체크리스트 페이지
 1) 
+
+
+
+
+
+
+23.01.10
+-이벤트객체 currentTarget과 target의 차이
+    currentTarget : 이벤트 리스너가 달려있는 있는 요소
+    target : 트리거
+
+ex) target은 이벤트를 작동시키는 span태그의 '글자'일 수도, 버튼 일수도 있다.
+    currentTarget은 onClick등 이벤트리스너가 '직접'달려있는 요소.
