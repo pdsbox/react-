@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import db from '../data/data.json';
 
 function AlarmRead(props) {
-    // const [uData, setUData] = useState([]);
-    // useEffect(() => {
-    // 	fetch()
-    // }, []);
+    // const [hour, setHour] = useState(props.hour);
+    // const [min, setMin] = useState(props.min);
+    // console.log(hour, min);
 
+    //삭제 버튼 이벤트
     function delEvent(id) {
         if (window.confirm("삭제하시겠습니까?")) {
             fetch(`http://localhost:3001/alarm/${id}`, {
@@ -23,29 +23,64 @@ function AlarmRead(props) {
     //숫자 정리하기 위한 코드
     let alData = [];
     for (let i = 0; i < db.alarm.length; i++) {
-        alData.push(
-            {
-                "id": db.alarm[i].id,
-                "memo": db.alarm[i].memo,
-                "hour": (db.alarm[i].hour < 10 ? `0${db.alarm[i].hour}` : db.alarm[i].hour),
-                "min": (db.alarm[i].min < 10 ? `0${db.alarm[i].min}` : db.alarm[i].min)
-            }
-        );
+        alData.push(db.alarm[i]);
     }
     //시간순으로 리스트 정렬
     alData.sort((a, b) => {
         return a.hour - b.hour;
-    })
+    });
     alData.sort((a, b) => {
         if (a.hour === b.hour) {
             return a.min - b.min;
         } else {
             return 0;
         }
+    });
+    let notOverList = [];
+    for (let i = 0; i < alData.length; i++) {
+        if (alData[i].over === false) {
+            notOverList.push(alData[i]);
+        }
+    }
+    console.log(notOverList);
+
+
+
+
+    // let notOver = [];
+    // let isOver = [];
+    // for (let i = 0; i < alData.length; i++) {
+    //     if (alData[i].over === false) {
+    //         notOver.push(
+    //             {
+    //                 "id": db.alarm[i].id,
+    //                 "memo": db.alarm[i].memo,
+    //                 "hour": (db.alarm[i].hour < 10 ? `0${db.alarm[i].hour}` : db.alarm[i].hour),
+    //                 "min": (db.alarm[i].min < 10 ? `0${db.alarm[i].min}` : db.alarm[i].min)
+    //             }
+    //         )
+    //     } else if (alData[i].over === true) {
+    //         isOver.push(
+    //             {
+    //                 "id": db.alarm[i].id,
+    //                 "memo": db.alarm[i].memo,
+    //                 "hour": (db.alarm[i].hour < 10 ? `0${db.alarm[i].hour}` : db.alarm[i].hour),
+    //                 "min": (db.alarm[i].min < 10 ? `0${db.alarm[i].min}` : db.alarm[i].min)
+    //             }
+    //         )
+    //     }
+    // }
+
+    useEffect(() => {
+        if (notOverList.length > 0) {
+            props.getRingData(notOverList[0].hour, notOverList[0].min, notOverList[0].memo);
+        } else {
+            props.getRingData(false, false, false);
+        }
     })
 
     return (
-        <div id="mainRead">
+        <section id="mainRead">
             <button type="button" onClick={(event) => {
                 event.preventDefault();
                 props.goCreate();
@@ -53,8 +88,10 @@ function AlarmRead(props) {
 
             <div className="mapData">
                 {alData.map((data) => ( //map에 쓰인 인자 data는 db.alarm이 됨. db.alarm의 갯수(length)만큼 생성.
-                    <div key={data.id} >
-                        <p><span>{data.memo}</span></p>
+                    <div key={data.id} className={data.over ? 'overed' : ''}>
+
+                        <span>{data.memo}</span>
+
                         <div>{data.hour}시 {data.min}분</div>
                         <button onClick={(event) => {
                             event.preventDefault();
@@ -69,7 +106,7 @@ function AlarmRead(props) {
                     </div>
                 ))}
             </div>
-        </div>
+        </section>
     )
 }
 

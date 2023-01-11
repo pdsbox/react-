@@ -57,31 +57,46 @@ function AlarmUpdate(props) {
         setValues(e.target.value);
     }
 
+    function submit(event) {
+        if (window.confirm("수정하시겠습니까?")) {
+            const date = new Date();
+            const thisHour = date.getHours();
+            const thisMin = date.getMinutes();
+
+            const memo = event.target.memo.value;
+            const selTime = event.target.time.value;
+            const selMinute = event.target.minute.value;
+
+            let over = false;
+            if (Number(thisHour) < Number(selTime)) {
+                over = false;
+            } else if (Number(thisHour) === Number(selTime) && Number(thisMin) < Number(selMinute)) {
+                over = false;
+                console.log("else", over);
+            } else {
+                over = true;
+                console.log("nothing", over);
+            }
+            fetch(`http://localhost:3001/alarm/${props.upData.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    memo: memo,
+                    hour: selTime,
+                    min: selMinute,
+                    over: over
+                }),
+            }).then(() => { window.alert("수정하였습니다. "); props.goRead(); })
+                .catch(() => { window.alert("에러가 발생했습니다. 다시 시도해주십시오."); })
+
+        } else { }
+    }
+
     return (
-        <div id="mainUpdation">
-            <form onSubmit={(event) => {
-                event.preventDefault();
-                if (window.confirm("수정하시겠습니까?")) {
-                    const memo = event.target.memo.value;
-                    const selTime = event.target.time.value;
-                    const selMinute = event.target.minute.value;
-                    fetch(`http://localhost:3001/alarm/${props.upData.id}`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            memo: memo,
-                            hour: selTime,
-                            min: selMinute
-                        }),
-                    }).then(() => { window.alert("수정하였습니다. "); props.onUpdate(); })
-                        .catch(() => { window.alert("에러가 발생했습니다. 다시 시도해주십시오."); })
-
-                } else { }
-
-
-            }}>
+        <section id="alarmUpdation">
+            <form onSubmit={(event) => { event.preventDefault(); submit(event); }}>
                 <div id="selectBox">
                     <select name="time" defaultValue={hour}>
                         {selectHour}
@@ -100,10 +115,8 @@ function AlarmUpdate(props) {
                     props.goRead();
                 }}>BACK</button>
                 <button type="submit">UPDATE</button>
-
             </form >
-
-        </div >
+        </section >
     )
 }
 

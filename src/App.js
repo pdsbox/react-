@@ -1,6 +1,6 @@
 import './App.css';
-import React, { useEffect, useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
 import Main from './pages/Main';
 import Alarm from "./pages/Alarm";

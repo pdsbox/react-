@@ -1,8 +1,10 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
 
 
 html {
+    /* font-family: 'Nanum Gothic', sans-serif; */
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 300;
@@ -258,26 +260,26 @@ section:first-of-type{
     text-align: center;
 }
 
-.indexContainer.first {
-    background: var(--primary-color);
+.buckets {
+    width: 25%;
 }
 
 .indexContainer.second {
     background: var(--primary-text-color);
 }
 
-.indexBlock,
-.infoBlocks {
-    width: 25%;
+.indexBlock {
     height: calc(90vh - 120px);
     max-height: 500px;
     min-height: 360px;
     border-right: 1px dotted var(--primary-text-color);
+    padding-top: 5px;
     box-sizing: border-box;
+    background: var(--primary-color);
 }
 
-.indexBlock:last-of-type,
-.infoBlocks:last-of-type {
+.buckets:last-of-type .indexBlock,
+.buckets:last-of-type .infoBlocks {
     border-right: 0;
 }
 
@@ -286,7 +288,7 @@ section:first-of-type{
     display: block;
     color: var(--primary-color);
     width: 90%;
-    height: 80%;
+    height: 85%;
     background: var(--primary-text-color);
     /*BG : 범위 확인하기 위해 임시로 지정*/
     position: relative;
@@ -313,8 +315,11 @@ section:first-of-type{
 }
 
 .navBlocks p {
+    font-family: 'Nanum Gothic', sans-serif;
     position: absolute;
-    bottom: -30px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    bottom: -40px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -329,20 +334,71 @@ section:first-of-type{
 
 }
 
+.indexBlock div {
+    width: 90%;
+    margin: 0 5%;
+    text-align: right;
+}
+
 .indexBlock span {
+    display: inline-block;
+    width: 80px;
+    height: 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    text-align: center;
     color: var(--primary-text-color);
     cursor: pointer;
-    text-align: right;
+    background-color: rebeccapurple;
 }
 
 .indexBlock span:hover {
     color: #fff;
+    font-weight: 400;
 }
 
 .infoBlocks {
     height: fit-content;
     max-height: none;
     min-height: auto;
+
+}
+
+.accordionBtn {
+    padding: 10px 0;
+    cursor: pointer;
+    transition: all .2s;
+    font-weight: 500;
+    border-bottom: 1px dotted var(--primary-color);
+}
+
+.accordionBtn:hover {
+    background: gainsboro;
+    color: #fff;
+}
+
+.accordionBucket {
+    display: none;
+}
+
+.accordionBucket li {
+    padding: 0 10px;
+    font-family: 'Nanum Gothic', sans-serif;
+    text-align: left;
+}
+
+.accordionBucket li:nth-child(odd) {
+    margin: 20px 0 10px;
+    font-weight: bold;
+}
+
+.accordionBucket li:nth-child(even) {
+    padding-left: 35px;
+    padding-bottom: 10px;
+    line-height: 1.2;
+    box-sizing: border-box;
+    word-wrap: break-word;
 }
 
 
@@ -401,6 +457,7 @@ section:first-of-type{
     font-weight: 400;
 }
 
+
 @media screen and (min-width:1024px) {
     #nav>a:hover {
         font-weight: 600;
@@ -408,25 +465,35 @@ section:first-of-type{
     }
 }
 
-/*컨텐츠 영역*/
-#contents {
+/*컨텐츠 공통 영역*/
+.contents {
     padding-left: 250px;
+    padding-right: 250px;
     box-sizing: border-box;
-    width: 100%;
-    height: 100vh;
-}
-
-#contents>section {
+    width: 75%;
     margin: 0 auto;
-    width: 66.6%;
-    min-width: 767px;
-    padding-top: 2.5vh;
-    box-sizing: border-box;
     text-align: center;
 }
 
 
-/*메인*/
+/*알람-헤드*/
+#alarmHead h1 {
+    padding: 60px 0;
+    font-weight: 500;
+    font-size: 3rem;
+}
+
+/*알람-리드*/
+.overed {
+    border: 0 !important;
+    background-color: cadetblue;
+    color: #f0f0f0;
+
+}
+
+
+
+
 #mainContent {
     border: 10px solid green;
     max-height: 90vh;
@@ -479,9 +546,9 @@ section:first-of-type{
 }
 
 
-/*메인-CREATE*/
+/*알람-CREATE*/
 #mainCreation,
-#mainUpdation {
+#alarmUpdation {
     height: 80vh;
 }
 

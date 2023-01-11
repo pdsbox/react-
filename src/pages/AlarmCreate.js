@@ -18,10 +18,25 @@ function AlarmCreate(props) {
     return (
         <div id="mainCreation">
             <form onSubmit={(event) => {
+                const date = new Date();
+                const thisHour = date.getHours();
+                const thisMin = date.getMinutes();
+                // console.log("now : ", thisHour, thisMin);
                 event.preventDefault();
                 const memo = event.target.memo.value;
                 const selTime = event.target.time.value;
                 const selMinute = event.target.minute.value;
+                // console.log("set : ", selTime, selMinute);
+                let over = false;
+                if (Number(thisHour) < Number(selTime)) {
+                    over = false;
+                } else if (Number(thisHour) === Number(selTime) && Number(thisMin) < Number(selMinute)) {
+                    over = false;
+                    console.log("else", over);
+                } else {
+                    over = true;
+                    console.log("nothing", over);
+                }
                 fetch('http://localhost:3001/alarm', {
                     method: "POST",
                     headers: {
@@ -31,7 +46,8 @@ function AlarmCreate(props) {
                         id: null,
                         memo: memo,
                         hour: selTime,
-                        min: selMinute
+                        min: selMinute,
+                        over: over
                     }),
                 }).then((res) => res.json())
                 props.goRead();
