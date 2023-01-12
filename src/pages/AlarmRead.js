@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import db from '../data/data.json';
 
 function AlarmRead(props) {
@@ -42,7 +42,6 @@ function AlarmRead(props) {
             notOverList.push(alData[i]);
         }
     }
-    console.log(notOverList);
 
 
 
@@ -73,11 +72,11 @@ function AlarmRead(props) {
 
     useEffect(() => {
         if (notOverList.length > 0) {
-            props.getRingData(notOverList[0].hour, notOverList[0].min, notOverList[0].memo);
+            props.getRingData(notOverList[0].hour, notOverList[0].min, notOverList[0].memo, notOverList[0].id, notOverList[0].over);
         } else {
-            props.getRingData(false, false, false);
+            props.getRingData(undefined, undefined, undefined, undefined, undefined);
         }
-    })
+    },)
 
     return (
         <section id="mainRead">

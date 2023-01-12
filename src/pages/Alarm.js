@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import Nav from './Nav';
 import AlarmHead from './AlarmHead';
@@ -9,23 +9,29 @@ import AlarmUpdate from './AlarmUpdate';
 function Alarm() {
 
 	//알람 울릴 시간 세팅
-	const [ringTimeHour, setRingTimeHour] = useState(null);
-	const [ringTimeMin, setRingTimeMin] = useState(null);
+	const [ringHour, setRingHour] = useState(null);
+	const [ringMin, setRingMin] = useState(null);
 	const [ringMemo, setRingMemo] = useState(null);
+	const [ringId, setRingId] = useState(null);
+	const [ringOver, setRingOver] = useState(null);
 
 	//Read컴포넌트로부터 알람 카운트 할 정보 받아오기
-	function getRingData(hour, min, memo) {
-		if (hour === false && min === false && memo === false) {
-			setRingTimeHour(hour);
-			setRingTimeMin(min);
+	function getRingData(hour, min, memo, id, over) {
+		if (hour === undefined && min === undefined && memo === undefined) {
+			setRingHour(hour);
+			setRingMin(min);
 			setRingMemo(memo);
+			setRingId(id);
+			setRingOver(over);
 		} else {
-			setRingTimeHour(Number(hour));
-			setRingTimeMin(Number(min));
+			setRingHour(Number(hour));
+			setRingMin(Number(min));
 			setRingMemo(memo);
+			setRingId(id);
+			setRingOver(over);
 		}
-	}
 
+	}
 	//CRUD모드 세팅
 	const [mode, setMode] = useState('READ');
 	const [getRead, setRead] = useState([]);
@@ -40,7 +46,7 @@ function Alarm() {
 		content = <AlarmRead goCreate={() => { setMode('CREATE') }}
 			goUpdate={() => { setMode("UPDATE"); }}
 			goData={(fromRead) => { goData(fromRead); }}
-			getRingData={(hour, min, memo) => { getRingData(hour, min, memo) }}
+			getRingData={(hour, min, memo, id, over) => { getRingData(hour, min, memo, id, over) }}
 		/>
 	}
 	else if (mode === 'CREATE') {
@@ -53,7 +59,7 @@ function Alarm() {
 		<>
 			<Nav></Nav>
 			<article className="contents">
-				<AlarmHead ringHour={ringTimeHour} ringMin={ringTimeMin} ringMemo={ringMemo} />
+				<AlarmHead ringHour={ringHour} ringMin={ringMin} ringMemo={ringMemo} ringId={ringId} ringOver={ringOver} />
 				{content}
 			</article>
 		</>
