@@ -93,19 +93,19 @@ function AlarmUpdate(props) {
     }
 
     return (
-        <section id="alarmUpdation" className='form'>
+        <section id="alarmUpdation" className='formContainer'>
+            <h4 className='kr'>시간과 내용을 설정해주세요.</h4>
             <form onSubmit={(event) => { event.preventDefault(); submit(event); }}>
-                <div id="selectBox">
+                <div className="selectBox">
                     <select name="time" defaultValue={hour}>
                         {selectHour}
                     </select>
-                    <span>시</span>
+                    <span> : </span>
                     <select name="minute" defaultValue={min}>
                         {selectMin}
                     </select>
-                    <span>분</span>
                 </div>
-                <div id="memoBox">
+                <div className="memoBox">
                     <input type="text" name="memo" onChange={changeEvent} placeholder='내용을 입력하세요.' value={values}></input>
                 </div>
                 <button type="button" onClick={(event) => {

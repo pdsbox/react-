@@ -282,7 +282,6 @@ button:hover {
 /*컨텐츠영역 레이아웃 공통*/
 .contents {
     padding: 0 250px;
-    box-sizing: border-box;
     width: 75%;
     margin: 0 auto;
     text-align: center;
@@ -320,19 +319,20 @@ button:hover {
 /*알람-Read*/
 
 #alarmRead>div:first-of-type {
-    width: 50%;
+    width: 40%;
+    min-width: 560px;
     text-align: right;
     margin: 0 auto;
 }
 
 .alarmObject {
-    width: 50%;
+    width: 40%;
     min-width: 560px;
     background-color: #eaeaea;
     border-radius: 20px;
     margin: 20px auto;
     color: #333;
-    padding: 20px 30px;
+    padding: 20px 25px;
     box-sizing: border-box;
     align-items: center;
     flex-flow: row;
@@ -353,61 +353,88 @@ button:hover {
 }
 
 .titleAndTime strong {
-    margin: 0 0 10px;
+    font-size: 0.95rem;
+    margin: 5px 0 20px;
     display: -webkit-box;
     word-wrap: break-word;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     overflow: hidden;
+    line-height: 1.1;
 }
 
 .titleAndTime span {
-    padding: 0 0 0 20px;
+    padding-left: 15px;
     box-sizing: border-box;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
 }
 
 
-
-
-/*알람-CREATE*/
-
-#selectBox {
-    height: 20vh;
-    line-height: 20vh;
+/*알람-Update/Create 공통*/
+.formContainer {
+    margin: 60px auto;
 }
 
-#selectBox select {
+.formContainer h4 {
+    font-weight: 600;
+}
+
+.selectBox,
+.memoBox {
+    margin: 30px auto;
+}
+
+.selectBox select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     outline-style: none;
-    width: 10%;
+    width: 100px;
+    height: 30px;
     border: 0;
-    border-bottom: 2px dotted var(--primary-text-color);
     box-sizing: border-box;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin: 0 15px;
+    background: #f2f2f2;
+    border-radius: 10px;
+    color: #222;
+    transition: all .2s;
 }
 
-/* #selectBox select:focus,
-#selectBox select:active,
-#selectBox select:checked
-{
-    outline-style:none;
-    border:0;
-} */
-#selectBox span:first-of-type {
-    margin-right: 10px;
+.selectBox select:hover,
+.selectBox select:focus {
+    background: #e3e3e3;
 }
 
-#selectBox span {
+.selectBox select option {
+    background: #fff;
+}
+
+.selectBox span {
     font-size: 1.3rem;
 }
 
-#memoBox input {
-    min-width: 200px;
-    width: 15vw;
+.memoBox input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline-style: none;
+    width: 400px;
+    height: 30px;
+    border: 0;
+    color: #222;
+    background: #f2f2f2;
+    border-radius: 10px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    transition: all .2s;
 }
+
+.memoBox input:hover,
+.memoBox input:focus {
+    background: #e3e3e3;
+}
+
+/*중단점 933px ?*/

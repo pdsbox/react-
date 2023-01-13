@@ -16,7 +16,8 @@ function AlarmCreate(props) {
     }
 
     return (
-        <div id="mainCreation">
+        <div id="mainCreation" className='formContainer'>
+            <h4 className='kr'>시간과 내용을 설정해주세요.</h4>
             <form onSubmit={(event) => {
                 const date = new Date();
                 const thisHour = date.getHours();
@@ -52,17 +53,16 @@ function AlarmCreate(props) {
                 }).then((res) => res.json())
                 props.goRead();
             }}>
-                <div id="selectBox">
+                <div className="selectBox">
                     <select name="time" required>
                         {selectHour}
                     </select>
-                    <span>시</span>
+                    <span> : </span>
                     <select name="minute" required>
                         {selectMin}
                     </select>
-                    <span>분</span>
                 </div>
-                <div id="memoBox">
+                <div className="memoBox">
                     <input type="text" name="memo" placeholder='내용을 입력하세요.'></input>
                 </div>
                 <button type="button" onClick={(event) => {
