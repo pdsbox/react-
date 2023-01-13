@@ -93,7 +93,7 @@ function AlarmUpdate(props) {
     }
 
     return (
-        <section id="alarmUpdation">
+        <section id="alarmUpdation" className='form'>
             <form onSubmit={(event) => { event.preventDefault(); submit(event); }}>
                 <div id="selectBox">
                     <select name="time" defaultValue={hour}>
