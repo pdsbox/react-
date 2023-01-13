@@ -32,10 +32,10 @@ function AlarmCreate(props) {
                     over = false;
                 } else if (Number(thisHour) === Number(selTime) && Number(thisMin) < Number(selMinute)) {
                     over = false;
-                    console.log("else", over);
+
                 } else {
                     over = true;
-                    console.log("nothing", over);
+
                 }
                 fetch('http://localhost:3001/alarm', {
                     method: "POST",

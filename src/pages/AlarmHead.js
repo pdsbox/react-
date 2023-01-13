@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import useInterval from '../hooks/useInterval.js';
 
 function AlarmHead(props) {
@@ -22,29 +22,35 @@ function AlarmHead(props) {
     const ringMin = props.ringMin === undefined ? props.ringMin : Number(props.ringMin);
     const ringMemo = props.ringMemo;
     const ringId = props.ringId;
-    let swc = (Boolean(props.ringOver));
+    const ringOver = props.ringOver;
+
 
     let chkTimeHour = null;
     let chkTimeMin = null;
 
     let content = null;
+
     //타임 체크
     if (ringHour === undefined && ringMin === undefined) {
-        content = "울릴 알람이 없습니다. 알람을 설정해 주세요.";
+        content = <h3 className="empty kr">울릴 알람이 없습니다! 알람을 설정해 주세요.</h3>;
     }
     else if (now_min > ringMin) {
-        chkTimeHour = now_hour === 0 ? ringHour - (now_hour + 1) : ringHour - now_hour;
+        // chkTimeHour = now_hour === 0 ? ringHour - (now_hour + 1) : ringHour - now_hour;
+        chkTimeHour = ringHour - (now_hour + 1);
         chkTimeMin = 60 + ringMin - now_min;
-        content = `다음 알람 : ${chkTimeHour}시간 ${chkTimeMin}분 후에 ${ringMemo}알람이 실행됩니다.`;
+        content = <h3 className='kr'><strong>{chkTimeHour}</strong>시간 <strong>{chkTimeMin}</strong>분 후에 <strong>{ringMemo}</strong> 알람이 실행됩니다.</h3>;
     } else if (now_min < ringMin) {
         chkTimeHour = ringHour - now_hour;
         chkTimeMin = ringMin - now_min;
-        content = `다음 알람 : ${chkTimeHour}시간 ${chkTimeMin}분 후에 ${ringMemo}알람이 실행됩니다.`;
-    } else if (swc === false && ringHour === now_hour && ringMin === now_min) {
-        swc = true;
+        content = <h3 className='kr'><strong>{chkTimeHour}</strong>시간 <strong>{chkTimeMin}</strong>분 후에 <strong>{ringMemo}</strong> 알람이 실행됩니다.</h3>;
+    } else if (ringHour > now_hour && now_min === ringMin) {
+        chkTimeHour = ringHour - now_hour;
+        chkTimeMin = 0;
+        content = <h3 className='kr'><strong>{chkTimeHour}</strong>시간 <strong>{chkTimeMin}</strong>분 후에 <strong>{ringMemo}</strong> 알람이 실행됩니다.</h3>;
+    } else if (ringOver === false && ringHour === now_hour && ringMin === now_min && now_second === 0) {
         match();
     } else {
-        content = "울릴 알람이 없습니다. 알람을 설정해 주세요.";
+        content = <h3 className="empty kr">울릴 알람이 없습니다! 알람을 설정해 주세요.</h3>;
     }
     // setSwc(props.ringOver);
 
@@ -60,7 +66,6 @@ function AlarmHead(props) {
     //     content = `다음 알람 : ${chkTimeHour}시간 ${chkTimeMin}분 후에 ${ringMemo}알람이 실행됩니다.`;
 
     function match() {
-        //패치 404 에러
         fetch(`http://localhost:3001/alarm/${ringId}`, {
             method: "PATCH",
             headers: {
@@ -69,7 +74,8 @@ function AlarmHead(props) {
             body: JSON.stringify({
                 over: true
             }),
-        }).then((res) => { if (res.ok) { console.log("알람 발생!"); } })
+        }).then(res => { if (res.ok) { window.alert("알람 발생!") } })
+            // .then((res) => { if (res.ok) { console.log("알람 발생! 모달로 대체? useEffect로 화면밖에서도?"); } })
             .catch(() => { window.alert("네트워크 오류가 발생했습니다. 확인 후 다시 시도해주십시오."); })
 
         // fetch(`http://localhost:3001/alarm?hour=${ringHour}&min=${ringMin}`, {
@@ -99,8 +105,8 @@ function AlarmHead(props) {
     return (
         <section id="alarmHead">
             <h1>ALARM</h1>
-            <h2>현재 시각 : {now_year}.{now_month}.{now_day} {now_hour < 10 ? `0${now_hour}` : now_hour}:{now_min < 10 ? `0${now_min}` : now_min}:{now_second < 10 ? `0${now_second}` : now_second}</h2>
-            <h2>{content}</h2>
+            <h2 className='kr'>{now_year}. {now_month}. {now_day} {now_hour < 10 ? `0${now_hour}` : now_hour}:{now_min < 10 ? `0${now_min}` : now_min}:{now_second < 10 ? `0${now_second}` : now_second}</h2>
+            {content}
         </section>
     )
 }

@@ -98,7 +98,7 @@ function Main() {
         setModalComp(null);
     }
 
-    //모달 세팅
+    //모달 세팅-Trigger
     function previewModalHandler(e) {
         const idx = e.currentTarget.className;
         const video = desc[idx].videoSrc;

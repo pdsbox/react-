@@ -30,8 +30,8 @@ function Alarm() {
 			setRingId(id);
 			setRingOver(over);
 		}
-
 	}
+
 	//CRUD모드 세팅
 	const [mode, setMode] = useState('READ');
 	const [getRead, setRead] = useState([]);

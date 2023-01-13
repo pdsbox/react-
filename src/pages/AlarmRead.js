@@ -79,33 +79,37 @@ function AlarmRead(props) {
     },)
 
     return (
-        <section id="mainRead">
-            <button type="button" onClick={(event) => {
-                event.preventDefault();
-                props.goCreate();
-            }}>CREATE</button>
+        <section id="alarmRead">
+            <div>
+                <button type="button" onClick={(event) => {
+                    event.preventDefault();
+                    props.goCreate();
+                }}>+ADD</button>
+            </div>
 
-            <div className="mapData">
+            <div className="alarmReadMapContainer">
                 {alData.map((data) => ( //map에 쓰인 인자 data는 db.alarm이 됨. db.alarm의 갯수(length)만큼 생성.
-                    <div key={data.id} className={data.over ? 'overed' : ''}>
-
-                        <span>{data.memo}</span>
-
-                        <div>{data.hour}시 {data.min}분</div>
-                        <button onClick={(event) => {
-                            event.preventDefault();
-                            props.goData(data);
-                            props.goUpdate();
-                        }}>UPDATE</button>
-                        <button onClick={(event) => {
-                            event.preventDefault();
-                            delEvent(data.id);
-                        }}
-                        >DELETE</button>
+                    <div key={data.id} className={data.over ? 'overed alarmObject flex' : 'alarmObject flex'}>
+                        <div className='titleAndTime'>
+                            {data.memo === '' ? '' : <strong>{data.memo}</strong>}
+                            <span>{data.hour} : {data.min}</span>
+                        </div>
+                        <div className='buttonGroup'>
+                            <button type="button" onClick={(event) => {
+                                event.preventDefault();
+                                props.goData(data);
+                                props.goUpdate();
+                            }}>EDIT</button>
+                            <button type="button" onClick={(event) => {
+                                event.preventDefault();
+                                delEvent(data.id);
+                            }}
+                            >DELETE</button>
+                        </div>
                     </div>
                 ))}
             </div>
-        </section>
+        </section >
     )
 }
 
