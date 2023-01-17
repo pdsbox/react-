@@ -63,7 +63,7 @@ function AlarmCreate(props) {
                     </select>
                 </div>
                 <div className="memoBox">
-                    <input type="text" name="memo" placeholder='내용을 입력하세요.'></input>
+                    <input type="text" name="memo" placeholder='내용을 입력하세요.' maxLength="16"></input>
                 </div>
                 <button type="button" onClick={(event) => {
                     event.preventDefault();

@@ -106,13 +106,13 @@ function AlarmUpdate(props) {
                     </select>
                 </div>
                 <div className="memoBox">
-                    <input type="text" name="memo" onChange={changeEvent} placeholder='내용을 입력하세요.' value={values}></input>
+                    <input type="text" name="memo" onChange={changeEvent} placeholder='내용을 입력하세요.' value={values} maxLength="16"></input>
                 </div>
                 <button type="button" onClick={(event) => {
                     event.preventDefault();
                     props.goRead();
                 }}>BACK</button>
-                <button type="submit">UPDATE</button>
+                <button type="submit">EDIT</button>
             </form >
         </section >
     )

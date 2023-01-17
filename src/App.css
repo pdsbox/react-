@@ -50,6 +50,14 @@ button:hover {
     font-family: 'Nanum Gothic', sans-serif;
 }
 
+/*컨텐츠영역 레이아웃 공통*/
+.contents {
+    padding: 0 250px;
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+}
+
 
 /*공통컬러*/
 :root {
@@ -215,8 +223,6 @@ button:hover {
     word-wrap: break-word;
 }
 
-
-
 /*인덱스-모달*/
 #modal {
     width: 100vw;
@@ -279,18 +285,9 @@ button:hover {
 }
 
 
-/*컨텐츠영역 레이아웃 공통*/
-.contents {
-    padding: 0 250px;
-    width: 75%;
-    margin: 0 auto;
-    text-align: center;
-}
-
-
 /*----------알람 Component---------*/
 /*알람-Head*/
-#alarmHead h1 {
+.contents h1 {
     padding: 60px 0;
     font-weight: 500;
     font-size: 3rem;
@@ -317,17 +314,17 @@ button:hover {
 
 
 /*알람-Read*/
-
 #alarmRead>div:first-of-type {
     width: 40%;
-    min-width: 560px;
+    min-width: 500px;
     text-align: right;
     margin: 0 auto;
 }
 
 .alarmObject {
     width: 40%;
-    min-width: 560px;
+    min-width: 500px;
+    height: 105px;
     background-color: #eaeaea;
     border-radius: 20px;
     margin: 20px auto;
@@ -438,3 +435,51 @@ button:hover {
 }
 
 /*중단점 933px ?*/
+
+
+/*----------타이머 Component---------*/
+/*타이머-Head*/
+#radioHeadContainer {
+    margin: 15px auto 25px;
+}
+
+.radioHeadWrap,
+.radioHeadWrap input[type="radio"]+label {
+    display: inline-block;
+}
+
+
+#radioHeadContainer input[type="radio"] {
+    appearance: none;
+    margin: 0;
+    padding: 0;
+}
+
+#radioHeadContainer input[type="radio"]+label {
+    cursor: pointer;
+    width: 30vw;
+    min-width: 300px;
+    height: 40px;
+    line-height: 40px;
+    color: var(--primary-color);
+    font-weight: 400;
+    transition: all .2s;
+    background: #f0f0f0;
+}
+
+#radioHeadContainer input[type="radio"]:checked+label {
+    background: var(--primary-color);
+    color: var(--primary-text-color);
+}
+
+#radioHeadContainer input[type="radio"]+label[for="radioTimer"] {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+#radioHeadContainer input[type="radio"]+label[for="radioStopwatch"] {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+/*타이머-Timer*/
