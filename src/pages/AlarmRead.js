@@ -92,7 +92,7 @@ function AlarmRead(props) {
                     <div key={data.id} className={data.over ? 'overed alarmObject flex' : 'alarmObject flex'}>
                         <div className='titleAndTime'>
                             {data.memo === '' ? '' : <strong>{data.memo}</strong>}
-                            <span>{data.hour}:{data.min}</span>
+                            <span>{data.hour < 10 ? `0${data.hour}` : data.hour}:{data.min < 10 ? `0${data.min}` : data.min}</span>
                         </div>
                         <div className='buttonGroup'>
                             <button type="button" onClick={(event) => {

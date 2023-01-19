@@ -483,3 +483,24 @@ button:hover {
 }
 
 /*타이머-Timer*/
+#timeCheck li {
+    display: flex;
+    justify-content: center;
+    ;
+}
+
+#timeCheck .red {
+    color: crimson;
+    font-weight: 500;
+}
+
+#timeCheck .blue {
+    color: darkblue;
+    font-weight: 500;
+}
+
+#timeCheck span {
+    font-weight: 300;
+    color: #333;
+    margin: 0 3px;
+}

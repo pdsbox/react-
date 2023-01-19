@@ -45,6 +45,29 @@
         { https://hianna.tistory.com/409 }
 
 
+<23.01.17>
+Alarm : CREATE / UPDATE 컴포넌트 input text 글자수 제한 지정(16)
+    => 반응형 레이아웃 쉽게 디자인하기 위함.
+
+Timer : Head 영역 설계.
+    - 라디오 버튼 + label태그로 구성.
+    - 개발자도구에서 React에서 쓰는 속성값(checked -> defaultChecked , for -> htmlFor) 확인 및 변경.
+    => 이후 컴포넌트화 시켜서 분리/관리
+
+생각해야할 것 : 각 기능별 페이지마다 헤더/컨텐츠로 섹션을 나누고 그에 따라 레이아웃, 간격, 영역 크기 등 디자인적으로 공통화 시켜야 할 것들.
+
+<23.01.19>
+Alarm : READ 컴포넌트 시간부분 수정(10이하일 때 0붙여서 표시)
+
+Timer : Timer 컴포넌트 초안 스케치.
+    - 각 버튼에 따른 이벤트 실행.
+    START : interval 실행
+    STOP : interval 중지
+    CHECK : 중간시간 기록
+    RESET : 모든 시간정보 초기화(0)
+
+
+
 데이터 정보(DB) : .json
 
 - 메인 페이지
