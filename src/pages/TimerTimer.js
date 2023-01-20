@@ -45,7 +45,6 @@ function TimerTimer() {
     function timer() {
         setTimerMilSec(timerMilSec + 1);
         if (timerMilSec === 99) {
-            console.log(timerMilSec);
             setTimerMilSec(0);
             setTimerSec(timerSec + 1);
         }
