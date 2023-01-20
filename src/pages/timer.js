@@ -5,9 +5,6 @@ import TimerStopwatch from './TimerStopwatch';
 
 function Timer() {
   const [mode, setMode] = useState('TIMER');
-  useEffect(() => {
-    console.log("render");
-  })
 
   let content = null;
   if (mode === 'TIMER') {
