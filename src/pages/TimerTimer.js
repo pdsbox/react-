@@ -44,7 +44,8 @@ function TimerTimer() {
     //메인 타이머 로직
     function timer() {
         setTimerMilSec(timerMilSec + 1);
-        if (timerMilSec === 100) {
+        if (timerMilSec === 99) {
+            console.log(timerMilSec);
             setTimerMilSec(0);
             setTimerSec(timerSec + 1);
         }
@@ -62,7 +63,7 @@ function TimerTimer() {
     //텀 타이머 로직
     function termTimer() {
         setTermMilSec(termMilSec + 1);
-        if (termMilSec === 100) {
+        if (termMilSec === 99) {
             setTermMilSec(0);
             setTermSec(termSec + 1);
         }
@@ -86,7 +87,7 @@ function TimerTimer() {
             :
             <span>{timerSec < 10 ? `0${timerSec}` : timerSec}</span>
             .
-            <span>{timerMilSec < 10 ? `0${timerMilSec}` : timerMilSec === 100 ? `0${(timerMilSec - 100)}` : timerMilSec}</span>
+            <span>{timerMilSec < 10 ? `0${timerMilSec}` : timerMilSec}</span>
         </>
         :
         <>
@@ -94,7 +95,7 @@ function TimerTimer() {
             :
             <span>{timerSec < 10 ? `0${timerSec}` : timerSec}</span>
             .
-            <span>{timerMilSec < 10 ? `0${timerMilSec}` : timerMilSec === 100 ? `0${(timerMilSec - 100)}` : timerMilSec}</span>
+            <span>{timerMilSec < 10 ? `0${timerMilSec}` : timerMilSec}</span>
         </>
         ;
 
@@ -107,7 +108,7 @@ function TimerTimer() {
             :
             <span>{termSec < 10 ? `0${termSec}` : termSec}</span>
             .
-            <span>{termMilSec < 10 ? `0${termMilSec}` : termMilSec === 100 ? `0${(termMilSec - 100)}` : termMilSec}</span>
+            <span>{termMilSec < 10 ? `0${termMilSec}` : termMilSec}</span>
         </>
         :
         <>
@@ -115,7 +116,7 @@ function TimerTimer() {
             :
             <span>{termSec < 10 ? `0${termSec}` : termSec}</span>
             .
-            <span>{termMilSec < 10 ? `0${termMilSec}` : termMilSec === 100 ? `0${(termMilSec - 100)}` : termMilSec}</span>
+            <span>{termMilSec < 10 ? `0${termMilSec}` : termMilSec}</span>
         </>
         ;
 
