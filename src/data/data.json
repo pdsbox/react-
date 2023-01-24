@@ -22,6 +22,20 @@
       "id": 7
     }
   ],
+  "timer": [
+    {
+      "id": "empty",
+      "key": 0,
+      "termHour": 0,
+      "termMin": 0,
+      "termSec": 0,
+      "termMilSec": 0,
+      "totalHour": 0,
+      "totalMin": 0,
+      "totalSec": 0,
+      "TotalMilSec": 0
+    }
+  ],
   "schedule": [
     {
       "id": 1,

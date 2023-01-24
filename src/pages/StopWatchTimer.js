@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useInterval from '../hooks/useInterval';
+import Button from './TimerButton';
 
-function TimerTimer() {
-    // useEffect(() => {
-    //     console.log("timer render");
-    // })
+function TimerStopWatch() {
     const [timerHour, setTimerHour] = useState(0);
     const [timerMin, setTimerMin] = useState(0);
     const [timerSec, setTimerSec] = useState(0);
@@ -80,42 +78,40 @@ function TimerTimer() {
     //메인 타이머 VIEW
     let timeView = timerHour > 0 ?
         <>
-            <span>{timerHour < 10 ? `0${timerHour}` : timerHour}</span>
-            :
-            <span>{timerMin < 10 ? `0${timerMin}` : timerMin}</span>
-            :
-            <span>{timerSec < 10 ? `0${timerSec}` : timerSec}</span>
-            .
-            <span>{timerMilSec < 10 ? `0${timerMilSec}` : timerMilSec}</span>
+            <span>
+                {timerHour < 10 ? `0${timerHour}` : timerHour} :
+                {timerMin < 10 ? `0${timerMin}` : timerMin} :
+                {timerSec < 10 ? `0${timerSec}` : timerSec} .
+                {timerMilSec < 10 ? `0${timerMilSec}` : timerMilSec}
+            </span>
         </>
         :
         <>
-            <span>{timerMin < 10 ? `0${timerMin}` : timerMin}</span>
-            :
-            <span>{timerSec < 10 ? `0${timerSec}` : timerSec}</span>
-            .
-            <span>{timerMilSec < 10 ? `0${timerMilSec}` : timerMilSec}</span>
+            <span>
+                {timerMin < 10 ? `0${timerMin}` : timerMin} :
+                {timerSec < 10 ? `0${timerSec}` : timerSec} .
+                {timerMilSec < 10 ? `0${timerMilSec}` : timerMilSec}
+            </span>
         </>
         ;
 
     //텀 타이머 VIEW
     let timeTerm = termHour > 0 ?
         <>
-            <span>{termHour < 10 ? `0${termHour}` : termHour}</span>
-            :
-            <span>{termMin < 10 ? `0${termMin}` : termMin}</span>
-            :
-            <span>{termSec < 10 ? `0${termSec}` : termSec}</span>
-            .
-            <span>{termMilSec < 10 ? `0${termMilSec}` : termMilSec}</span>
+            <span>
+                {termHour < 10 ? `0${termHour}` : termHour} :
+                {termMin < 10 ? `0${termMin}` : termMin} :
+                {termSec < 10 ? `0${termSec}` : termSec} .
+                {termMilSec < 10 ? `0${termMilSec}` : termMilSec}
+            </span>
         </>
         :
         <>
-            <span>{termMin < 10 ? `0${termMin}` : termMin}</span>
-            :
-            <span>{termSec < 10 ? `0${termSec}` : termSec}</span>
-            .
-            <span>{termMilSec < 10 ? `0${termMilSec}` : termMilSec}</span>
+            <span>
+                {termMin < 10 ? `0${termMin}` : termMin} :
+                {termSec < 10 ? `0${termSec}` : termSec} .
+                {termMilSec < 10 ? `0${termMilSec}` : termMilSec}
+            </span>
         </>
         ;
 
@@ -132,8 +128,33 @@ function TimerTimer() {
         })
     }
 
+    function postCheckList() {
+        fetch('http://localhost:3001/timer', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: "a",
+                key: timeCheckList.length + 1,
+                termHour: termHour,
+                termMin: termMin,
+                termSec: termSec,
+                termMilSec: termMilSec,
+                totalHour: timerHour,
+                totalMin: timerMin,
+                totalSec: timerSec,
+                TotalMilSec: timerMilSec
+            }),
+        }).then((res) => {
+            if (res.ok) {
+                console.log("post")
+            }
+        })
+    }
+
     //체크 이벤트 소트(내림차순)
-    let timeCheck = timeCheckList.sort((a, b) => {
+    const timeCheck = timeCheckList.sort((a, b) => {
         return b.key - a.key;
     })
 
@@ -160,13 +181,14 @@ function TimerTimer() {
         setTermIntervalMode("ON");
         timeCheckEvent();
         setTermInit(false);
+        postCheckList();
         console.log("Check");
     }
     //스탑 버튼 이벤트
     function btnStop() {
-        console.log("Stop");
         setIntervalMode("OFF");
         setTermIntervalMode("OFF");
+        console.log("Stop");
     }
 
     //텀 타이머값 초기화 함수
@@ -182,12 +204,13 @@ function TimerTimer() {
 
     if (intervalMode === "OFF") {
         buttonGroup = <>
-            <button type="button" onClick={() => { btnReset() }}>RESET</button>
-            <button type="button" onClick={() => { btnStart() }}>START</button></>
+            <Button value="RESET" clickEvent={() => { btnReset() }} />
+            <Button value="START" clickEvent={() => { btnStart() }} />
+        </>
     } else if (intervalMode === "ON") {
         buttonGroup = <>
-            <button type="button" onClick={() => { btnCheck() }}>CHECK</button>
-            <button type="button" onClick={() => { btnStop() }}>STOP</button>
+            <Button value="CHECK" clickEvent={() => { btnCheck() }} />
+            <Button value="STOP" clickEvent={() => { btnStop() }} />
         </>
     }
 
@@ -196,7 +219,8 @@ function TimerTimer() {
             <h2 id="watch" className={termInit === true ? 'watchInit' : 'started'}>
                 {timeView}
             </h2>
-            <h3 id="subWatch" className={termInit === true ? 'checkerInit' : 'started'}>       {timeTerm}
+            <h3 id="subWatch" className={termInit === true ? 'checkerInit' : 'started'}>
+                {timeTerm}
             </h3>
             <hgroup id="chkTitle" className={termInit === true ? 'titleInit' : 'started flex'}>
                 <h4 className='kr'>구간</h4>
@@ -213,4 +237,4 @@ function TimerTimer() {
     )
 }
 
-export default TimerTimer;
+export default TimerStopWatch;
