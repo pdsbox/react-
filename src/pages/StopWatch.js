@@ -32,7 +32,7 @@ function StopWatch() {
           <form id="radioHeadContainer">
             <div className='radioHeadWrap'>
               <input type="radio" id="radioTimer" name="radio" value="Timer" defaultChecked onClick={() => { setStopWatch() }}></input>
-              <label htmlFor="radioTimer">Stopwatch</label>
+              <label htmlFor="radioTimer">StopWatch</label>
             </div>
             <div className='radioHeadWrap'>
               <input type="radio" id="radioStopwatch" name="radio" value="Stopwatch" onClick={() => { setStopWatchRecent() }}></input>

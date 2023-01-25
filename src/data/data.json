@@ -1,41 +1,21 @@
 {
   "alarm": [
     {
-      "memo": "열두칸열두칸열두칸열두칸열두칸열",
+      "memo": "2015",
       "hour": "20",
-      "min": "13",
+      "min": "15",
       "over": true,
-      "id": 2
+      "id": 1
     },
     {
-      "memo": "",
-      "hour": "23",
-      "min": "50",
-      "over": false,
-      "id": 6
-    },
-    {
-      "memo": "내용이엄청나게길어지면과연무슨일",
-      "hour": "1",
-      "min": "2",
-      "over": true,
-      "id": 7
+      "id": 2,
+      "memo": "밥먹고 운동하자",
+      "hour": "20",
+      "min": "8",
+      "over": true
     }
   ],
-  "timer": [
-    {
-      "id": "empty",
-      "key": 0,
-      "termHour": 0,
-      "termMin": 0,
-      "termSec": 0,
-      "termMilSec": 0,
-      "totalHour": 0,
-      "totalMin": 0,
-      "totalSec": 0,
-      "TotalMilSec": 0
-    }
-  ],
+  "timer": [],
   "schedule": [
     {
       "id": 1,

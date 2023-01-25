@@ -22,6 +22,9 @@ function TimerStopWatch() {
     //텀 타이머 초기화 세팅
     const [termInit, setTermInit] = useState(true);
 
+    //서버로 보낼 데이터 임시저장
+    const [postStandByData, setPostStandByData] = useState([]);
+
     //메인 타이머 인터벌
     useInterval(() => {
         if (intervalMode === "ON") {
@@ -127,15 +130,10 @@ function TimerStopWatch() {
             ];
         })
     }
-
-    function postCheckList() {
-        fetch('http://localhost:3001/timer', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                id: "a",
+    function postStandBy() {
+        setPostStandByData((postStandByData) => {
+            return [...postStandByData, {
+                id: timeCheckList.length + 1,
                 key: timeCheckList.length + 1,
                 termHour: termHour,
                 termMin: termMin,
@@ -144,14 +142,35 @@ function TimerStopWatch() {
                 totalHour: timerHour,
                 totalMin: timerMin,
                 totalSec: timerSec,
-                TotalMilSec: timerMilSec
-            }),
-        }).then((res) => {
-            if (res.ok) {
-                console.log("post")
-            }
-        })
+                totalMilSec: timerMilSec
+            }]
+        });
     }
+    console.log("postData", postStandByData)
+    // function postCheckList() {
+    //     fetch('http://localhost:3001/timer', {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             id: null,
+    //             key: timeCheckList.length + 1,
+    //             termHour: termHour,
+    //             termMin: termMin,
+    //             termSec: termSec,
+    //             termMilSec: termMilSec,
+    //             totalHour: timerHour,
+    //             totalMin: timerMin,
+    //             totalSec: timerSec,
+    //             totalMilSec: timerMilSec
+    //         }),
+    //     }).then((res) => {
+    //         if (res.ok) {
+    //             console.log("post")
+    //         }
+    //     })
+    // }
 
     //체크 이벤트 소트(내림차순)
     const timeCheck = timeCheckList.sort((a, b) => {
@@ -181,7 +200,7 @@ function TimerStopWatch() {
         setTermIntervalMode("ON");
         timeCheckEvent();
         setTermInit(false);
-        postCheckList();
+        postStandBy();
         console.log("Check");
     }
     //스탑 버튼 이벤트

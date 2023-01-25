@@ -76,13 +76,14 @@ button:hover {
 }
 
 .indexContainer {
-    width: 75%;
+    width: 66.67%;
+    min-width: 800px;
     margin: 0 auto;
     text-align: center;
 }
 
 .buckets {
-    width: 25%;
+    width: 50%;
 }
 
 .indexContainer.second {
@@ -631,10 +632,11 @@ button:hover {
     font-weight: 400;
 }
 
-
-
-
-
 #btnGroup {
+    margin: 20px auto;
+}
+
+.recentTitle {
+    font-size: 2.5rem;
     margin: 20px auto;
 }

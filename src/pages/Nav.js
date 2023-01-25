@@ -11,8 +11,6 @@ function Nav() {
                 <Link to="/">Home</Link>
                 <Link to="/Alarm">Alarm</Link>
                 <Link to="/StopWatch">StopWatch</Link>
-                <Link to="/Checklist">CheckList</Link>
-                <Link to="/Weather">Weather</Link>
             </nav>
         </header>
     )

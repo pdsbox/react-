@@ -90,7 +90,11 @@ THINK : 스톱워치 RECENT 컴포넌트 기능.
         => db에 가장 최근 데이터만 저장되게 하려면 HOW?
     - 서버로부터 데이터 받아와서 보여주기(fetch-get, array, map)
     
-            
+<23.01.25>
+DELETE : 프로젝트 볼륨 DOWN (체크리스트, 웨더 삭제)
+ADD : StopWatchRecent 컴포넌트 화면 VIEW 스케치(map)
+
+THINK : 서버로부터 데이터 저장해서 Recent에서 받아오기.
 
 
 

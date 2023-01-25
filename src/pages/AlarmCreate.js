@@ -50,7 +50,7 @@ function AlarmCreate(props) {
                         min: selMinute,
                         over: over
                     }),
-                }).then((res) => res.json())
+                })
                 props.goRead();
             }}>
                 <div className="selectBox">
