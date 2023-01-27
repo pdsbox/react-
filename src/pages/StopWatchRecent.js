@@ -3,27 +3,31 @@ import React, { useEffect, useState } from 'react';
 function RecentStopWatch() {
     const [data, setData] = useState([]);
     useEffect(() => {
-        function fetching() {
-            fetch('http://localhost:3001/stopWatch/1', {
+        function initFetching() {
+            fetch('http://localhost:3001/stopwatch/1', {
                 method: "GET",
-            }
-            ).then(res => { return res.json(); }).then(resData => { setData(...data, resData); })
+            }).then((res) => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    setData([]);
+                }
+            }).then(result => { setData(result.stopWatch) })
+                .catch(() => { setData([]); })
         }
-        fetching();
+        initFetching();
     }, [])
-    console.log(data);
-    let dataSort = data.sort((a, b) => {
-        return b.key - a.key;
-    })
 
-
-    console.log("Sort", dataSort);
+    let dataSort = [];
+    if (Array.isArray(data) && data.length !== 0) {
+        dataSort = data.sort((a, b) => {
+            return b.key - a.key;
+        })
+    }
 
     let contents = null;
 
-    if (Array.isArray(data) && data.length === 0) {
-        contents = <h2 className='kr'>저장된 데이터가 없습니다.</h2>
-    } else {
+    if (data !== undefined && Array.isArray(data) && data.length !== 0) {
         contents =
             <>
                 <hgroup id="chkTitle" className="started flex">
@@ -34,7 +38,7 @@ function RecentStopWatch() {
                 <ul id="timeCheck" className='started'>
                     {dataSort.map(times => (
                         <li key={times.key} className={(times.key % 10 === 0) ? 'red' : (times.key % 5) === 0 ? 'blue' : ''}>
-                            <div className='number'>{times.key}</div>
+                            <div className='number'>{times.key < 10 ? `0${times.key}` : times.key}</div>
                             <div className='term'>
                                 {times.termHour > 0 ?
                                     <span>
@@ -72,12 +76,13 @@ function RecentStopWatch() {
                     }
                 </ul>
             </>
+    } else {
+        contents = <h2 className='kr'>저장된 데이터가 없습니다.</h2>
     }
 
     return (
         <section id="stopWatchRecent">
-            <h2 className='recentTitle kr'>지난 기록</h2>
-
+            <h2 className='recentTitle kr'>이전 기록</h2>
             {contents}
         </section>
     )

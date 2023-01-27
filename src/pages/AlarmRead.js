@@ -17,19 +17,27 @@ function AlarmRead(props) {
         const dateHour = date.getHours();
         const dateMin = date.getMinutes();
         for (let i = 0; i < db.alarm.length; i++) {
-            if (db.alarm[i].hour > dateHour) {
+            if (Number(db.alarm[i].hour) > dateHour) {
                 fetchingOver(i + 1, false);
-            } else if (db.alarm[i].hour === dateHour && db.alarm[i].min > dateMin) {
-                fetchingOver(i + 1, false);
-            } else if (db.alarm[i].hour === dateHour && db.alarm[i].min === dateMin) {
+
+            } else if (Number(db.alarm[i].hour) < dateHour) {
                 fetchingOver(i + 1, true);
-            } else if (db.alarm[i].hour < dateHour) {
-                fetchingOver(i + 1, true);
-            } else if (db.alarm[i].hour === dateHour && db.alarm[i].min < dateMin) {
-                fetchingOver(i + 1, true);
+
+            } else if (Number(db.alarm[i].hour) === dateHour) {
+                if (Number(db.alarm[i].min) > dateMin) {
+                    fetchingOver(i + 1, false);
+
+                } else if (Number(db.alarm[i].min) < dateMin) {
+                    fetchingOver(i + 1, true);
+
+                } else {
+                    fetchingOver(i + 1, true);
+                }
             }
         }
     }
+
+
 
     //리스트 상태 변경 액션
     function fetchingOver(id, status) {
@@ -39,7 +47,7 @@ function AlarmRead(props) {
             body: JSON.stringify({
                 over: status
             })
-        }).then(() => { console.log(`${id}변환`) })
+        })
     }
 
 
