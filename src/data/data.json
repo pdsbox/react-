@@ -4,7 +4,7 @@
       "memo": "2015",
       "hour": "20",
       "min": "15",
-      "over": true,
+      "over": false,
       "id": 1
     },
     {
@@ -12,22 +12,98 @@
       "memo": "밥먹고 운동하자",
       "hour": "20",
       "min": "8",
-      "over": true
+      "over": false
     }
   ],
-  "timer": [],
-  "schedule": [
+  "stopWatch": [
     {
-      "id": 1,
-      "day": 0,
-      "title": "세면",
-      "isCheck": "false"
-    },
-    {
-      "id": 2,
-      "day": 2,
-      "title": "산책하기",
-      "isCheck": "false"
+      "stopWatch": [
+        {
+          "id": 1,
+          "key": 1,
+          "termHour": 0,
+          "termMin": 0,
+          "termSec": 1,
+          "termMilSec": 23,
+          "totalHour": 0,
+          "totalMin": 0,
+          "totalSec": 1,
+          "totalMilSec": 23
+        },
+        {
+          "id": 2,
+          "key": 2,
+          "termHour": 0,
+          "termMin": 0,
+          "termSec": 1,
+          "termMilSec": 51,
+          "totalHour": 0,
+          "totalMin": 0,
+          "totalSec": 2,
+          "totalMilSec": 74
+        },
+        {
+          "id": 3,
+          "key": 3,
+          "termHour": 0,
+          "termMin": 0,
+          "termSec": 1,
+          "termMilSec": 52,
+          "totalHour": 0,
+          "totalMin": 0,
+          "totalSec": 4,
+          "totalMilSec": 26
+        },
+        {
+          "id": 4,
+          "key": 4,
+          "termHour": 0,
+          "termMin": 0,
+          "termSec": 1,
+          "termMilSec": 14,
+          "totalHour": 0,
+          "totalMin": 0,
+          "totalSec": 5,
+          "totalMilSec": 40
+        },
+        {
+          "id": 5,
+          "key": 5,
+          "termHour": 0,
+          "termMin": 0,
+          "termSec": 2,
+          "termMilSec": 43,
+          "totalHour": 0,
+          "totalMin": 0,
+          "totalSec": 7,
+          "totalMilSec": 83
+        },
+        {
+          "id": 6,
+          "key": 6,
+          "termHour": 0,
+          "termMin": 0,
+          "termSec": 1,
+          "termMilSec": 60,
+          "totalHour": 0,
+          "totalMin": 0,
+          "totalSec": 9,
+          "totalMilSec": 43
+        },
+        {
+          "id": 7,
+          "key": 7,
+          "termHour": 0,
+          "termMin": 0,
+          "termSec": 1,
+          "termMilSec": 42,
+          "totalHour": 0,
+          "totalMin": 0,
+          "totalSec": 10,
+          "totalMilSec": 86
+        }
+      ],
+      "id": 1
     }
   ]
 }

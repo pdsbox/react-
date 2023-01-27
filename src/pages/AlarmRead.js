@@ -6,6 +6,43 @@ function AlarmRead(props) {
     // const [min, setMin] = useState(props.min);
     // console.log(hour, min);
 
+    //알람 항목들 상태 조회
+    useEffect(() => {
+        dataSet();
+    }, [])
+
+    //알람 리스트 상태 현재시간에 맞춰서 최신화
+    function dataSet() {
+        const date = new Date();
+        const dateHour = date.getHours();
+        const dateMin = date.getMinutes();
+        for (let i = 0; i < db.alarm.length; i++) {
+            if (db.alarm[i].hour > dateHour) {
+                fetchingOver(i + 1, false);
+            } else if (db.alarm[i].hour === dateHour && db.alarm[i].min > dateMin) {
+                fetchingOver(i + 1, false);
+            } else if (db.alarm[i].hour === dateHour && db.alarm[i].min === dateMin) {
+                fetchingOver(i + 1, true);
+            } else if (db.alarm[i].hour < dateHour) {
+                fetchingOver(i + 1, true);
+            } else if (db.alarm[i].hour === dateHour && db.alarm[i].min < dateMin) {
+                fetchingOver(i + 1, true);
+            }
+        }
+    }
+
+    //리스트 상태 변경 액션
+    function fetchingOver(id, status) {
+        fetch(`http://localhost:3001/alarm/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                over: status
+            })
+        }).then(() => { console.log(`${id}변환`) })
+    }
+
+
     //삭제 버튼 이벤트
     function delEvent(id) {
         if (window.confirm("삭제하시겠습니까?")) {

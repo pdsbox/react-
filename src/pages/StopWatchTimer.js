@@ -23,7 +23,7 @@ function TimerStopWatch() {
     const [termInit, setTermInit] = useState(true);
 
     //서버로 보낼 데이터 임시저장
-    const [postStandByData, setPostStandByData] = useState([]);
+    const [stopWatch, setStopWatch] = useState([]);
 
     //메인 타이머 인터벌
     useInterval(() => {
@@ -131,8 +131,8 @@ function TimerStopWatch() {
         })
     }
     function postStandBy() {
-        setPostStandByData((postStandByData) => {
-            return [...postStandByData, {
+        setStopWatch((stopWatch) => {
+            return [...stopWatch, {
                 id: timeCheckList.length + 1,
                 key: timeCheckList.length + 1,
                 termHour: termHour,
@@ -146,31 +146,29 @@ function TimerStopWatch() {
             }]
         });
     }
-    console.log("postData", postStandByData)
-    // function postCheckList() {
-    //     fetch('http://localhost:3001/timer', {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             id: null,
-    //             key: timeCheckList.length + 1,
-    //             termHour: termHour,
-    //             termMin: termMin,
-    //             termSec: termSec,
-    //             termMilSec: termMilSec,
-    //             totalHour: timerHour,
-    //             totalMin: timerMin,
-    //             totalSec: timerSec,
-    //             totalMilSec: timerMilSec
-    //         }),
-    //     }).then((res) => {
-    //         if (res.ok) {
-    //             console.log("post")
-    //         }
-    //     })
-    // }
+    console.log("임시저장", stopWatch)
+
+    function postData() {
+        fetch('http://localhost:3001/stopWatch', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                stopWatch
+            }),
+        }).then((res) => {
+            if (res.ok) {
+                console.log("post")
+            }
+        })
+    }
+
+    function deleteData() {
+        fetch('http://localhost:3001/stopWatch/1', {
+            method: "DELETE",
+        })
+    }
 
     //체크 이벤트 소트(내림차순)
     const timeCheck = timeCheckList.sort((a, b) => {
@@ -207,6 +205,7 @@ function TimerStopWatch() {
     function btnStop() {
         setIntervalMode("OFF");
         setTermIntervalMode("OFF");
+        postData();
         console.log("Stop");
     }
 

@@ -4,7 +4,7 @@ function RecentStopWatch() {
     const [data, setData] = useState([]);
     useEffect(() => {
         function fetching() {
-            fetch('http://localhost:3001/timer', {
+            fetch('http://localhost:3001/stopWatch/1', {
                 method: "GET",
             }
             ).then(res => { return res.json(); }).then(resData => { setData(...data, resData); })
