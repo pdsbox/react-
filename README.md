@@ -1,8 +1,8 @@
----터미널---  <br/>
-준비물 : npm i -g json-server<br/>
-npm start<br/>
-json-server --watch ./src/data/data.json -p 3001<br/>
 
+CREATE-REACT-APP<br/>
+DB : json-server<br/>
+버전 1<br/>
+<br/>
 
 
 <22.12.16 ~ >  
@@ -125,5 +125,20 @@ UPDATE : Main 컴포넌트
     - 이미지 삽입  
     - 프리뷰 동영상 삽입  
     - MORE 기능 설명구 삽입  
+
+
+npm run build 이슈(배포버전)
+    - https://codingapple.com/unit/react-build-deploy-github-pages/
+
+=> index.html 화면 안 나오는 문제
+    - 배포버전 index.html 내 script/link 경로 수정(/ -> ./)
+        => 해결 안됨.
+    - 라우팅 문제?
+    
+=> json-server 연결?
+    => 1. heroku : https://velog.io/@rmaomina/json-server-Heroku-React-app-deploy
+       2. firebase
+       3. node.js - express
+
   
 ---Ver 1 FIX
