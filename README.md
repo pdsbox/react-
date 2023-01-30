@@ -1,5 +1,12 @@
-<22.12.16 ~ >
-    프로젝트 기획
+---터미널---  <br/>
+준비물 : npm i -g json-server<br/>
+npm start<br/>
+json-server --watch ./src/data/data.json -p 3001<br/>
+
+
+
+<22.12.16 ~ >  
+    프로젝트 기획  
     -리액트로 만드는 alarm 앱
     -react-router-dom
 
