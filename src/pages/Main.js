@@ -2,6 +2,9 @@ import '../App.css';
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import alarmVideo from "../videos/alarm.mp4";
+import stopwatchVideo from '../videos/stopwatch.mp4'
+import alarmclockImg from "../images/alarmclock.jpg"
+import stopwatchImg from "../images/stopwatch.jpg"
 
 const desc = [
     {
@@ -9,26 +12,32 @@ const desc = [
         "path": "/Alarm",
         "head": "Alarm",
         "desc": "시간과 내용을 설정하고, 설정한 시간이 되었을 때 알려줍니다.",
-        "imgSrc": "",
+        "imgSrc": alarmclockImg,
         "videoSrc": alarmVideo,
-        "fxTitle1": "불러오기/저장/수정/삭제(CRUD)",
-        "fxDesc1": '데이터베이스와 연동하여 데이터를 보여주고 사용자로부터 정보를 입력받거나 수정, 삭제할 수 있다.',
-        "fxTitle2": "알람 기능",
-        "fxDesc2": "사용자로부터 입력받은 시간과 현재 시간을 대조하여 알람기능 구현",
-        "afterStory": "react에서 form 태그의 옵션들과 응용성, fetch를 사용하여 서버(DB)와의 데이터를 주고받는 과정에서 발생하는 이슈들(서버off상태 및 연결상태 불량 등), 동기/비동기 데이터 처리에 대한 공부를 하였습니다."
+        "fxTitle1": "1. 불러오기/저장/수정/삭제(CRUD)",
+        "fxDesc1": '사용자가 알람을 확인(View), 등록, 수정, 삭제할 수 있습니다. (Fetch API)',
+        "fxTitle2": "2. 알람 기능",
+        "fxDesc2": "설정한 시간이 되면 알람이 울립니다.",
+        "fxTitle3": "3. 남은 시간 확인",
+        "fxDesc3": "다음에 울릴 알람 시간이 얼마나 남았는지 보여줍니다",
+        "fxTitle4": "4. 알람 상태 최신화",
+        "fxDesc4": "알람의 상태를 현재 시간(Real Time)과 비교해 자동으로 설정해줍니다."
     },
     {
         "idx": "1",
         "path": "/StopWatch",
         "head": "StopWatch",
         "desc": "시간의 흐름을 기록, 저장할 수 있습니다.",
-        "imgSrc": "",
-        "videoSrc": "2번",
-        "fxTitle1": "불러오기/저장/수정/삭제(CRUD)",
-        "fxDesc1": '데이터베이스와 연동하여 데이터를 보여주고 사용자로부터 정보를 입력받거나 수정, 삭제할 수 있다.',
-        "fxTitle2": "알람 기능",
-        "fxDesc2": "사용자로부터 입력받은 시간과 현재 시간을 대조하여 알람기능 구현",
-        "afterStory": "react에서 form 태그의 옵션들과 응용성, fetch를 사용하여 서버(DB)와의 데이터를 주고받는 과정에서 발생하는 이슈들(서버off상태 및 연결상태 불량 등), 동기/비동기 데이터 처리에 대한 공부를 하였습니다."
+        "imgSrc": stopwatchImg,
+        "videoSrc": stopwatchVideo,
+        "fxTitle1": "1. 타이머",
+        "fxDesc1": '사용자가 원하는 타이밍에 타이머를 실행, 중지할 수 있습니다.',
+        "fxTitle2": "2. 시간 기록",
+        "fxDesc2": "사용자가 원하는 타이밍에 원하는 만큼 시간을 기록 및 확인할 수 있습니다.",
+        "fxTitle3": "3. 구간 기록",
+        "fxDesc3": "구간별 소요 시간을 확인할 수 있습니다.",
+        "fxTitle4": "4. 이전 기록",
+        "fxDesc4": "가장 최근에 사용한 기록을 볼 수 있습니다."
     }
 ]
 
@@ -104,10 +113,12 @@ function Main() {
                             <section className='indexBlock'>
                                 <Link to={desc.path} className="navBlocks">
                                     <img src={desc.imgSrc} alt={desc.imgSrc}></img>
+
                                     <h2>{desc.head}</h2>
                                     <p>{desc.desc}</p>
+
                                 </Link>
-                                <div><span className={desc.idx} onClick={(event) => {
+                                <div className='preview'><span className={desc.idx} onClick={(event) => {
                                     previewModalHandler(event);
                                 }}>PREVIEW</span></div>
                             </section>
@@ -115,15 +126,17 @@ function Main() {
                                 <ul>
                                     <li className="accordionBtn" onClick={(event) => {
                                         accordion(event);
-                                    }}>More</li>
+                                    }}>MORE</li>
                                     <li>
                                         <ul className="accordionBucket">
                                             <li>{desc.fxTitle1}</li>
                                             <li>{desc.fxDesc1}</li>
                                             <li>{desc.fxTitle2}</li>
                                             <li>{desc.fxDesc2}</li>
-                                            <li>주요 이슈</li>
-                                            <li>{desc.afterStory}</li>
+                                            <li>{desc.fxTitle3}</li>
+                                            <li>{desc.fxDesc3}</li>
+                                            <li>{desc.fxTitle4}</li>
+                                            <li>{desc.fxDesc4}</li>
                                         </ul>
                                     </li>
                                 </ul>

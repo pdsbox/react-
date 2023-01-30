@@ -11,7 +11,7 @@ function AlarmRead(props) {
         dataSet();
     }, [])
 
-    //알람 리스트 상태 현재시간에 맞춰서 최신화
+    //알람 상태 현재시간에 맞춰서 최신화
     function dataSet() {
         const date = new Date();
         const dateHour = date.getHours();

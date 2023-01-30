@@ -165,7 +165,6 @@ function TimerStopWatch() {
                 }),
             }).then((res) => {
                 if (res.ok) {
-                    console.log("POST")
                     setPostStatus(true);
                 }
             })
@@ -178,10 +177,6 @@ function TimerStopWatch() {
                 body: JSON.stringify({
                     stopWatch
                 }),
-            }).then((res) => {
-                if (res.ok) {
-                    console.log("PUT")
-                }
             })
         }
     }

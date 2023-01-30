@@ -14,6 +14,8 @@ html {
 
 img {
     vertical-align: top;
+    width: 90%;
+    height: 100%;
 }
 
 a {
@@ -111,22 +113,26 @@ button:hover {
     color: var(--primary-color);
     width: 90%;
     height: 85%;
-    background: var(--primary-text-color);
-    /*BG : 범위 확인하기 위해 임시로 지정*/
-    position: relative;
     overflow: hidden;
+    position: relative;
 }
 
 .navBlocks:hover h2 {
     bottom: 60px;
+    background: rgba(255, 255, 255, 0.75);
 }
 
 .navBlocks:hover p {
     bottom: 10px;
+    background: rgba(255, 255, 255, 0.75);
     opacity: 1;
 }
 
 .navBlocks h2 {
+    width: 90%;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.5);
+    line-height: 30px;
     position: absolute;
     bottom: 20px;
     left: 50%;
@@ -137,6 +143,10 @@ button:hover {
 }
 
 .navBlocks p {
+    width: 90%;
+    height: 50px;
+    line-height: 50px;
+    background: rgba(255, 255, 255, 0.5);
     font-family: 'Nanum Gothic', sans-serif;
     position: absolute;
     padding: 0 15px;
@@ -144,7 +154,6 @@ button:hover {
     bottom: -40px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
     display: -webkit-box;
     word-wrap: break-word;
     -webkit-line-clamp: 2;
@@ -156,7 +165,7 @@ button:hover {
 
 }
 
-.indexBlock div {
+.indexBlock div.preview {
     width: 90%;
     margin: 0 5%;
     text-align: right;

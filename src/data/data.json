@@ -1,4 +1,9 @@
 {
   "alarm": [],
-  "stopwatch": []
+  "stopwatch": [
+    {
+      "id": 1,
+      "stopWatch": []
+    }
+  ]
 }
