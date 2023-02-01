@@ -15,7 +15,7 @@ const desc = [
         "imgSrc": alarmclockImg,
         "videoSrc": alarmVideo,
         "fxTitle1": "1. 불러오기/저장/수정/삭제(CRUD)",
-        "fxDesc1": '사용자가 알람을 확인(View), 등록, 수정, 삭제할 수 있습니다. (Fetch API)',
+        "fxDesc1": '사용자가 알람을 확인(View), 등록, 수정, 삭제할 수 있습니다. (Fetch)',
         "fxTitle2": "2. 알람 기능",
         "fxDesc2": "설정한 시간이 되면 알람이 울립니다.",
         "fxTitle3": "3. 남은 시간 확인",

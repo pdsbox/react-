@@ -125,20 +125,29 @@ UPDATE : Main 컴포넌트
     - 이미지 삽입  
     - 프리뷰 동영상 삽입  
     - MORE 기능 설명구 삽입  
-
-
-npm run build 이슈(배포버전)
-    - https://codingapple.com/unit/react-build-deploy-github-pages/
-
-=> index.html 화면 안 나오는 문제
-    - 배포버전 index.html 내 script/link 경로 수정(/ -> ./)
-        => 해결 안됨.
-    - 라우팅 문제?
+  
+---Ver 1 FIX  
+  
+  
+npm run build 이슈(배포)  
+    참고1 : https://create-react-app.dev/docs/deployment/  
+    참고2 : https://medium.com/@_diana_lee/react-react-router-%EC%A0%81%EC%9A%A9%ED%95%9C-react-%EC%95%B1%EC%9D%84-github-pages%EB%A1%9C-%EB%B0%B0%ED%8F%AC%ED%95%98%EB%8A%94-%EB%B2%95-5f6119c6a5d9  
+  
+    화면 안 나오는 문제  
+    - 배포버전 index.html 내 script/link 경로 수정(/ -> ./)  
+        => 해결 안됨.  
+    - 라우팅 문제?  
+        > BrowserRouter의 basename 속성값으로 process.env.PUBLIC_URL 부여.(참고2)  
+        => 해결 완료. <23.02.01>  
     
-=> json-server 연결?
-    => 1. heroku : https://velog.io/@rmaomina/json-server-Heroku-React-app-deploy
-       2. firebase
-       3. node.js - express
+    json-server 연결?  
+       1. heroku : https://velog.io/@rmaomina/json-server-Heroku-React-app-deploy  
+       2. firebase  
+       3. node.js - express  
+  
+    <23.02.01>  
+    -> 깃허브 deploy로 배포하여 json-server 연결하지 않음.  
+        => 메인 페이지에서 코드 이미지, 동영상 추가 첨부하여 완성도 올릴 계획.  
+
 
   
----Ver 1 FIX

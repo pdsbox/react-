@@ -9,8 +9,8 @@ function Nav() {
         <header>
             <nav id="nav">
                 <Link to="/">Home</Link>
-                <Link to="/Alarm">Alarm</Link>
-                <Link to="/StopWatch">StopWatch</Link>
+                <Link to="/alarm">Alarm</Link>
+                <Link to="/stopwatch">StopWatch</Link>
             </nav>
         </header>
     )
