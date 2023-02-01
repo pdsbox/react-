@@ -11,7 +11,7 @@ import StopWatch from "./pages/StopWatch";
 function App() {
 
   return (
-    <BrowserRouter basename='./'>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/alarm" element={<Alarm />}></Route>
