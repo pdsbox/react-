@@ -154,7 +154,7 @@ function TimerStopWatch() {
 
     function postData() {
         if (postStatus === false) {
-            fetch('https://react-alarm-app-server.vercel.app:3000/stopwatch', {
+            fetch('https://react-alarm-app-server.vercel.app/stopwatch', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -169,7 +169,7 @@ function TimerStopWatch() {
                 }
             })
         } else if (postStatus === true) {
-            fetch('https://react-alarm-app-server.vercel.app:3000/stopwatch/1', {
+            fetch('https://react-alarm-app-server.vercel.app/stopwatch/1', {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -183,7 +183,7 @@ function TimerStopWatch() {
 
 
     function deleteData() {
-        fetch('https://react-alarm-app-server.vercel.app:3000/stopwatch/1', {
+        fetch('https://react-alarm-app-server.vercel.app/stopwatch/1', {
             method: "DELETE",
         })
     }
