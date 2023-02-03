@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-alarm-app/static/css/main.f2358363.css",
-    "main.js": "/react-alarm-app/static/js/main.009bb2ff.js",
+    "main.js": "/react-alarm-app/static/js/main.008f10e8.js",
     "static/js/787.b701888c.chunk.js": "/react-alarm-app/static/js/787.b701888c.chunk.js",
     "static/media/alarm.mp4": "/react-alarm-app/static/media/alarm.a356af9400e99dd95989.mp4",
     "static/media/stopwatch.mp4": "/react-alarm-app/static/media/stopwatch.aff01ce7b51c52387660.mp4",
@@ -9,11 +9,11 @@
     "static/media/stopwatch.jpg": "/react-alarm-app/static/media/stopwatch.cbd52ce68115989c5668.jpg",
     "index.html": "/react-alarm-app/index.html",
     "main.f2358363.css.map": "/react-alarm-app/static/css/main.f2358363.css.map",
-    "main.009bb2ff.js.map": "/react-alarm-app/static/js/main.009bb2ff.js.map",
+    "main.008f10e8.js.map": "/react-alarm-app/static/js/main.008f10e8.js.map",
     "787.b701888c.chunk.js.map": "/react-alarm-app/static/js/787.b701888c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f2358363.css",
-    "static/js/main.009bb2ff.js"
+    "static/js/main.008f10e8.js"
   ]
 }
