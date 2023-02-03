@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import db from '../data/data.json';
 
 function AlarmRead(props) {
     // const [hour, setHour] = useState(props.hour);
@@ -9,25 +8,43 @@ function AlarmRead(props) {
     //알람 항목들 상태 조회
     useEffect(() => {
         dataSet();
-    }, [])
+    }, []);
 
+    //db 호출
+    useEffect(() => {
+        function initFetchDbData() {
+            fetch('https://react-alarm-app-server.vercel.app/alarm', {
+                method: "GET",
+            }).then((res) => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    setDb([]);
+                }
+            }).then(result => { setDb(result) })
+                .catch(() => { setDb([]); })
+        }
+        initFetchDbData();
+    }, []);
+
+    const [db, setDb] = useState([]);
     //알람 상태 현재시간에 맞춰서 최신화
     function dataSet() {
         const date = new Date();
         const dateHour = date.getHours();
         const dateMin = date.getMinutes();
-        for (let i = 0; i < db.alarm.length; i++) {
-            if (Number(db.alarm[i].hour) > dateHour) {
+        for (let i = 0; i < db.length; i++) {
+            if (Number(db[i].hour) > dateHour) {
                 fetchingOver(i + 1, false);
 
-            } else if (Number(db.alarm[i].hour) < dateHour) {
+            } else if (Number(db[i].hour) < dateHour) {
                 fetchingOver(i + 1, true);
 
-            } else if (Number(db.alarm[i].hour) === dateHour) {
-                if (Number(db.alarm[i].min) > dateMin) {
+            } else if (Number(db[i].hour) === dateHour) {
+                if (Number(db[i].min) > dateMin) {
                     fetchingOver(i + 1, false);
 
-                } else if (Number(db.alarm[i].min) < dateMin) {
+                } else if (Number(db[i].min) < dateMin) {
                     fetchingOver(i + 1, true);
 
                 } else {
@@ -41,7 +58,7 @@ function AlarmRead(props) {
 
     //리스트 상태 변경 액션
     function fetchingOver(id, status) {
-        fetch(`https://react-alarm-app-server.vercel.app:3000/alarm/${id}`, {
+        fetch(`https://react-alarm-app-server.vercel.app/alarm/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -54,7 +71,7 @@ function AlarmRead(props) {
     //삭제 버튼 이벤트
     function delEvent(id) {
         if (window.confirm("삭제하시겠습니까?")) {
-            fetch(`https://react-alarm-app-server.vercel.app:3000/alarm/${id}`, {
+            fetch(`https://react-alarm-app-server.vercel.app/alarm/${id}`, {
                 method: "DELETE",
             })
                 .then((res) => {
@@ -67,8 +84,8 @@ function AlarmRead(props) {
 
     //숫자 정리하기 위한 코드
     let alData = [];
-    for (let i = 0; i < db.alarm.length; i++) {
-        alData.push(db.alarm[i]);
+    for (let i = 0; i < db.length; i++) {
+        alData.push(db[i]);
     }
     //시간순으로 리스트 정렬
     alData.sort((a, b) => {
