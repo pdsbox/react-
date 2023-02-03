@@ -4,7 +4,7 @@ function RecentStopWatch() {
     const [data, setData] = useState([]);
     useEffect(() => {
         function initFetching() {
-            fetch('https://react-alarm-app-server.vercel.app:3000/stopwatch/1', {
+            fetch('https://react-alarm-app-server.vercel.app/stopwatch/1', {
                 method: "GET",
             }).then((res) => {
                 if (res.ok) {
