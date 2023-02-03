@@ -41,7 +41,7 @@ function AlarmRead(props) {
 
     //리스트 상태 변경 액션
     function fetchingOver(id, status) {
-        fetch(`http://localhost:3001/alarm/${id}`, {
+        fetch(`https://react-alarm-app-server.vercel.app:3000/alarm/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -54,7 +54,7 @@ function AlarmRead(props) {
     //삭제 버튼 이벤트
     function delEvent(id) {
         if (window.confirm("삭제하시겠습니까?")) {
-            fetch(`http://localhost:3001/alarm/${id}`, {
+            fetch(`https://react-alarm-app-server.vercel.app:3000/alarm/${id}`, {
                 method: "DELETE",
             })
                 .then((res) => {
