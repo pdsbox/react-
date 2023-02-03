@@ -38,7 +38,7 @@ function AlarmCreate(props) {
                     over = true;
 
                 }
-                fetch('https://react-alarm-app-server.vercel.app:3000/alarm', {
+                fetch('https://react-alarm-app-server.vercel.app/alarm', {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

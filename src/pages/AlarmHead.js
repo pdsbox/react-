@@ -66,7 +66,7 @@ function AlarmHead(props) {
     //     content = `다음 알람 : ${chkTimeHour}시간 ${chkTimeMin}분 후에 ${ringMemo}알람이 실행됩니다.`;
 
     function match() {
-        fetch(`https://react-alarm-app-server.vercel.app:3000/alarm/${ringId}`, {
+        fetch(`https://react-alarm-app-server.vercel.app/alarm/${ringId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

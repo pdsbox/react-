@@ -75,7 +75,7 @@ function AlarmUpdate(props) {
             } else {
                 over = true;
             }
-            fetch(`https://react-alarm-app-server.vercel.app:3000/alarm/${props.upData.id}`, {
+            fetch(`https://react-alarm-app-server.vercel.app/alarm/${props.upData.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
