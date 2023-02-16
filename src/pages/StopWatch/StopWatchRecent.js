@@ -4,13 +4,11 @@ function RecentStopWatch() {
     const [data, setData] = useState([]);
     useEffect(() => {
         function initFetching() {
-            fetch('https://react-alarm-app-server.vercel.app/stopwatch/1', {
+            fetch('http://localhost:3001/stopwatch/1', {
                 method: "GET",
             }).then((res) => {
                 if (res.ok) {
                     return res.json();
-                } else {
-                    setData([]);
                 }
             }).then(result => { setData(result.stopWatch) })
                 .catch(() => { setData([]); })

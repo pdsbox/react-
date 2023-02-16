@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import useInterval from '../hooks/useInterval';
-import Button from './TimerButton';
+import useInterval from '../../hooks/useInterval';
+import Button from '../TimerButton';
 
 function TimerStopWatch() {
     const [timerHour, setTimerHour] = useState(0);
@@ -154,7 +154,7 @@ function TimerStopWatch() {
 
     function postData() {
         if (postStatus === false) {
-            fetch('https://react-alarm-app-server.vercel.app/stopwatch', {
+            fetch('http://localhost:3001/stopwatch', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -169,7 +169,7 @@ function TimerStopWatch() {
                 }
             })
         } else if (postStatus === true) {
-            fetch('https://react-alarm-app-server.vercel.app/stopwatch/1', {
+            fetch('http://localhost:3001/stopwatch/1', {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -183,7 +183,7 @@ function TimerStopWatch() {
 
 
     function deleteData() {
-        fetch('https://react-alarm-app-server.vercel.app/stopwatch/1', {
+        fetch('http://localhost:3001/stopwatch/1', {
             method: "DELETE",
         })
     }
@@ -240,7 +240,7 @@ function TimerStopWatch() {
 
     if (intervalMode === "OFF") {
         buttonGroup = <>
-            <Button value="RESET" clickEvent={() => { btnReset() }} />
+            <Button value="RESET" clickEvent={() => { btnReset(); deleteData(); }} />
             <Button value="START" clickEvent={() => { btnStart() }} />
         </>
     } else if (intervalMode === "ON") {

@@ -1,36 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Nav from './Nav';
-import AlarmHead from './AlarmHead';
-import AlarmRead from './AlarmRead';
-import AlarmCreate from './AlarmCreate';
-import AlarmUpdate from './AlarmUpdate';
+import AlarmHead from './Alarm/AlarmHead';
+import AlarmRead from './Alarm/AlarmRead';
+import AlarmCreate from './Alarm/AlarmCreate';
+import AlarmUpdate from './Alarm/AlarmUpdate';
 
 function Alarm() {
 
-	//알람 울릴 시간 세팅
-	const [ringHour, setRingHour] = useState(null);
-	const [ringMin, setRingMin] = useState(null);
-	const [ringMemo, setRingMemo] = useState(null);
-	const [ringId, setRingId] = useState(null);
-	const [ringOver, setRingOver] = useState(null);
+	//db세팅
+	const [fetchData, setFetchData] = useState([]);
+	useEffect(() => {
+		callDb();
+	}, []);
 
-	//Read컴포넌트로부터 알람 카운트 할 정보 받아오기
-	function getRingData(hour, min, memo, id, over) {
-		if (hour === undefined && min === undefined && memo === undefined) {
-			setRingHour(hour);
-			setRingMin(min);
-			setRingMemo(memo);
-			setRingId(id);
-			setRingOver(over);
-		} else {
-			setRingHour(Number(hour));
-			setRingMin(Number(min));
-			setRingMemo(memo);
-			setRingId(id);
-			setRingOver(over);
+	function callDb() {
+		fetch('http://localhost:3001/alarm', {
+			method: "GET",
+		}).then((res) => {
+			if (res.ok) {
+				return res.json();
+			}
+		}).then(result => {
+			setFetchData(result)
+		})
+	}
+
+	//알람 울릴 타이머 설정
+	let notOverList = [];
+	for (let i = 0; i < fetchData.length; i++) {
+		if (fetchData[i].over === false) {
+			notOverList.push(fetchData[i]);
 		}
 	}
+	//정렬
+	if (notOverList.length > 0) {
+		notOverList.sort((a, b) => {
+			return a.hour - b.hour;
+		});
+	}
+	if (notOverList.length > 0) {
+		notOverList.sort((a, b) => {
+			if (a.hour === b.hour) {
+				return a.min - b.min;
+			} else {
+				return 0;
+			}
+		});
+	}
+
+	console.log(notOverList)
+
 
 	//CRUD모드 세팅
 	const [mode, setMode] = useState('READ');
@@ -46,20 +66,26 @@ function Alarm() {
 		content = <AlarmRead goCreate={() => { setMode('CREATE') }}
 			goUpdate={() => { setMode("UPDATE"); }}
 			goData={(fromRead) => { goData(fromRead); }}
-			getRingData={(hour, min, memo, id, over) => { getRingData(hour, min, memo, id, over) }}
+			dbData={fetchData}
+			callDb={() => { callDb(); }}
 		/>
 	}
 	else if (mode === 'CREATE') {
-		content = <AlarmCreate goRead={() => { setMode("READ"); }} />
+		content = <AlarmCreate
+			goRead={() => { setMode("READ"); }}
+			callDb={() => { callDb(); }} />
 	}
 	else if (mode === 'UPDATE') {
-		content = <AlarmUpdate upData={getRead} goRead={() => { setMode("READ") }} />
+		content = <AlarmUpdate
+			upData={getRead}
+			goRead={() => { setMode("READ") }}
+			callDb={() => { callDb(); }} />
 	}
 	return (
 		<>
 			<Nav></Nav>
 			<article className="contents">
-				<AlarmHead ringHour={ringHour} ringMin={ringMin} ringMemo={ringMemo} ringId={ringId} ringOver={ringOver} />
+				<AlarmHead ringTime={notOverList[0]} callDb={() => { callDb(); }} />
 				{content}
 			</article>
 		</>

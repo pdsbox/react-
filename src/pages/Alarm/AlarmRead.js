@@ -1,64 +1,34 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 function AlarmRead(props) {
-    // const [hour, setHour] = useState(props.hour);
-    // const [min, setMin] = useState(props.min);
-    // console.log(hour, min);
+    const database = props.dbData.length !== 0 ? props.dbData : [];
 
-    //알람 항목들 상태 조회
-    useEffect(() => {
-        dataSet();
-    }, []);
-
-    //db 호출
-    useEffect(() => {
-        function initFetchDbData() {
-            fetch('https://react-alarm-app-server.vercel.app/alarm', {
-                method: "GET",
-            }).then((res) => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    setDb([]);
-                }
-            }).then(result => { setDb(result) })
-                .catch(() => { setDb([]); })
-        }
-        initFetchDbData();
-    }, []);
-
-    const [db, setDb] = useState([]);
     //알람 상태 현재시간에 맞춰서 최신화
-    function dataSet() {
-        const date = new Date();
-        const dateHour = date.getHours();
-        const dateMin = date.getMinutes();
-        for (let i = 0; i < db.length; i++) {
-            if (Number(db[i].hour) > dateHour) {
-                fetchingOver(i + 1, false);
+    const realTime = new Date();
+    const realTimeHour = realTime.getHours();
+    const realTimeMin = realTime.getMinutes();
 
-            } else if (Number(db[i].hour) < dateHour) {
-                fetchingOver(i + 1, true);
+    //상태 변경 액션
+    if (database.length > 0) {
+        for (let i = 0; i < database.length; i++) {
+            if (Number(database[i].hour) > realTimeHour) {
+                fetchingOver(database[i].id, false);
 
-            } else if (Number(db[i].hour) === dateHour) {
-                if (Number(db[i].min) > dateMin) {
-                    fetchingOver(i + 1, false);
+            } else if (Number(database[i].hour) < realTimeHour) {
+                fetchingOver(database[i].id, true);
 
-                } else if (Number(db[i].min) < dateMin) {
-                    fetchingOver(i + 1, true);
+            } else if (Number(database[i].hour) === realTimeHour) {
+                if (Number(database[i].min) > realTimeMin) {
+                    fetchingOver(database[i].id, false)
 
                 } else {
-                    fetchingOver(i + 1, true);
+                    fetchingOver(database[i].id, true);
                 }
             }
         }
     }
-
-
-
-    //리스트 상태 변경 액션
     function fetchingOver(id, status) {
-        fetch(`https://react-alarm-app-server.vercel.app/alarm/${id}`, {
+        fetch(`http://localhost:3001/alarm/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -71,42 +41,33 @@ function AlarmRead(props) {
     //삭제 버튼 이벤트
     function delEvent(id) {
         if (window.confirm("삭제하시겠습니까?")) {
-            fetch(`https://react-alarm-app-server.vercel.app/alarm/${id}`, {
+            fetch(`http://localhost:3001/alarm/${id}`, {
                 method: "DELETE",
+            }).then((res) => {
+                if (res.ok) {
+                    window.alert("삭제되었습니다.");
+                    props.callDb();
+                }
             })
-                .then((res) => {
-                    if (res.ok) {
-                        alert("삭제되었습니다.")
-                    }
-                })
         }
     }
 
-    //숫자 정리하기 위한 코드
-    let alData = [];
-    for (let i = 0; i < db.length; i++) {
-        alData.push(db[i]);
-    }
+
     //시간순으로 리스트 정렬
-    alData.sort((a, b) => {
-        return a.hour - b.hour;
-    });
-    alData.sort((a, b) => {
-        if (a.hour === b.hour) {
-            return a.min - b.min;
-        } else {
-            return 0;
-        }
-    });
-    let notOverList = [];
-    for (let i = 0; i < alData.length; i++) {
-        if (alData[i].over === false) {
-            notOverList.push(alData[i]);
-        }
+    if (database.length > 0) {
+        database.sort((a, b) => {
+            return a.hour - b.hour;
+        });
     }
-
-
-
+    if (database.length > 0) {
+        database.sort((a, b) => {
+            if (a.hour === b.hour) {
+                return a.min - b.min;
+            } else {
+                return 0;
+            }
+        });
+    }
 
     // let notOver = [];
     // let isOver = [];
@@ -132,13 +93,7 @@ function AlarmRead(props) {
     //     }
     // }
 
-    useEffect(() => {
-        if (notOverList.length > 0) {
-            props.getRingData(notOverList[0].hour, notOverList[0].min, notOverList[0].memo, notOverList[0].id, notOverList[0].over);
-        } else {
-            props.getRingData(undefined, undefined, undefined, undefined, undefined);
-        }
-    },)
+
 
     return (
         <section id="alarmRead">
@@ -150,7 +105,7 @@ function AlarmRead(props) {
             </div>
 
             <div className="alarmReadMapContainer">
-                {alData.map((data) => ( //map에 쓰인 인자 data는 db.alarm이 됨. db.alarm의 갯수(length)만큼 생성.
+                {database.length === 0 ? "Loading..." : database.map((data) => (
                     <div key={data.id} className={data.over ? 'overed alarmObject flex' : 'alarmObject flex'}>
                         <div className='titleAndTime'>
                             {data.memo === '' ? '' : <strong>{data.memo}</strong>}

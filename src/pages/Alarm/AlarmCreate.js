@@ -38,7 +38,7 @@ function AlarmCreate(props) {
                     over = true;
 
                 }
-                fetch('https://react-alarm-app-server.vercel.app/alarm', {
+                fetch('http://localhost:3001/alarm', {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -50,8 +50,24 @@ function AlarmCreate(props) {
                         min: selMinute,
                         over: over
                     }),
-                })
-                props.goRead();
+                }).then((res) => {
+                    if (res.ok) {
+                        return res.json()
+                    } else {
+                        return null;
+                    }
+                }).then((res) => {
+                    if (res !== null) {
+                        window.alert("추가되었습니다.");
+                        props.callDb();
+                        props.goRead();
+                    } else {
+                        window.alert("에러가 발생했습니다. 다시 시도해주십시오.");
+                    }
+                }
+                )
+                // .catch(() => { window.alert("에러가 발생했습니다. 다시 시도해주십시오."); })
+
             }}>
                 <div className="selectBox">
                     <select name="time" required>

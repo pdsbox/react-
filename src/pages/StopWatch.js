@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Nav from './Nav';
-import TimerStopWatch from './StopWatchTimer';
-import RecentStopWatch from './StopWatchRecent';
+import TimerStopWatch from './StopWatch/StopWatchTimer';
+import RecentStopWatch from './StopWatch/StopWatchRecent';
 
 
 function StopWatch() {

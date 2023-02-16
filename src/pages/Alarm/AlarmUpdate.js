@@ -75,7 +75,7 @@ function AlarmUpdate(props) {
             } else {
                 over = true;
             }
-            fetch(`https://react-alarm-app-server.vercel.app/alarm/${props.upData.id}`, {
+            fetch(`http://localhost:3001/alarm/${props.upData.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -86,7 +86,13 @@ function AlarmUpdate(props) {
                     min: selMinute,
                     over: over
                 }),
-            }).then(() => { window.alert("수정하였습니다. "); props.goRead(); })
+            }).then((res) => {
+                if (res.ok) {
+                    window.alert("수정하였습니다.");
+                    props.callDb();
+                    props.goRead();
+                }
+            })
                 .catch(() => { window.alert("에러가 발생했습니다. 다시 시도해주십시오."); })
 
         } else { }

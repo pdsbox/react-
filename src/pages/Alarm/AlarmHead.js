@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useInterval from '../hooks/useInterval.js';
+import useInterval from '../../hooks/useInterval.js';
 
 function AlarmHead(props) {
 
@@ -18,18 +18,25 @@ function AlarmHead(props) {
     const [now_month, setMonth] = useState(month + 1);
     const [now_year, setYear] = useState(year);
 
-    const ringHour = props.ringHour === undefined ? props.ringHour : Number(props.ringHour);
-    const ringMin = props.ringMin === undefined ? props.ringMin : Number(props.ringMin);
-    const ringMemo = props.ringMemo;
-    const ringId = props.ringId;
-    const ringOver = props.ringOver;
+    let ringHour = null;
+    let ringMin = null;
+    let ringMemo = null;
+    let ringId = null;
+    let ringOver = null;
+    if (props.ringTime !== undefined) {
+        ringHour = Number(props.ringTime.hour);
+        ringMin = Number(props.ringTime.min);
+        ringMemo = props.ringTime.memo;
+        ringId = props.ringTime?.id;
+        ringOver = props.ringTime?.over;
+    }
+
 
 
     let chkTimeHour = null;
     let chkTimeMin = null;
 
     let content = null;
-
     //타임 체크
     if (ringHour === undefined && ringMin === undefined) {
         content = <h3 className="empty kr">울릴 알람이 없습니다! 알람을 설정해 주세요.</h3>;
@@ -66,7 +73,7 @@ function AlarmHead(props) {
     //     content = `다음 알람 : ${chkTimeHour}시간 ${chkTimeMin}분 후에 ${ringMemo}알람이 실행됩니다.`;
 
     function match() {
-        fetch(`https://react-alarm-app-server.vercel.app/alarm/${ringId}`, {
+        fetch(`http://localhost:3001/alarm/${ringId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -74,7 +81,12 @@ function AlarmHead(props) {
             body: JSON.stringify({
                 over: true
             }),
-        }).then(res => { if (res.ok) { window.alert("알람 발생!") } })
+        }).then((res) => {
+            if (res.ok) {
+                window.alert("알람 발생!");
+                props.callDb();
+            }
+        })
             // .then((res) => { if (res.ok) { console.log("알람 발생! 모달로 대체? useEffect로 화면밖에서도?"); } })
             .catch(() => { window.alert("네트워크 오류가 발생했습니다. 확인 후 다시 시도해주십시오."); })
 
