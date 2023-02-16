@@ -18,6 +18,7 @@ function AlarmHead(props) {
     const [now_month, setMonth] = useState(month + 1);
     const [now_year, setYear] = useState(year);
 
+    //울릴 시간값 초기화
     let ringHour = null;
     let ringMin = null;
     let ringMemo = null;

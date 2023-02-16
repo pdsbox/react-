@@ -13,16 +13,20 @@ function AlarmRead(props) {
         for (let i = 0; i < database.length; i++) {
             if (Number(database[i].hour) > realTimeHour) {
                 fetchingOver(database[i].id, false);
+                database[i].over = false;
 
             } else if (Number(database[i].hour) < realTimeHour) {
                 fetchingOver(database[i].id, true);
+                database[i].over = true
 
             } else if (Number(database[i].hour) === realTimeHour) {
                 if (Number(database[i].min) > realTimeMin) {
-                    fetchingOver(database[i].id, false)
+                    fetchingOver(database[i].id, false);
+                    database[i].over = false;
 
                 } else {
                     fetchingOver(database[i].id, true);
+                    database[i].over = true;
                 }
             }
         }

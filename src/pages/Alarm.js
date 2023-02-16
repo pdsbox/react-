@@ -49,8 +49,6 @@ function Alarm() {
 		});
 	}
 
-	console.log(notOverList)
-
 
 	//CRUD모드 세팅
 	const [mode, setMode] = useState('READ');
