@@ -12,8 +12,8 @@ function App() {
 
   return (
     <><h1>시작</h1>
-      {/* <BrowserRouter basename={process.env.PUBLIC_URL}> */}
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        {/* <BrowserRouter> */}
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="/alarm" element={<Alarm />}></Route>
