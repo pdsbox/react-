@@ -1,19 +1,4 @@
 {
-  "alarm": [
-    {
-      "memo": "2156",
-      "hour": "23",
-      "min": "26",
-      "over": false,
-      "id": 11
-    },
-    {
-      "memo": "",
-      "hour": "6",
-      "min": "58",
-      "over": true,
-      "id": 12
-    }
-  ],
+  "alarm": [],
   "stopwatch": []
 }

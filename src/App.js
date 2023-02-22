@@ -11,15 +11,16 @@ import StopWatch from "./pages/StopWatch";
 function App() {
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      {/* <BrowserRouter> */}
-      <Routes>
-        <Route path="/" element={<Main />}></Route>
-        <Route path="/alarm" element={<Alarm />}></Route>
-        <Route path="/stopwatch" element={<StopWatch />}></Route>
-      </Routes>
-    </BrowserRouter>
-
+    <><h1>시작</h1>
+      {/* <BrowserRouter basename={process.env.PUBLIC_URL}> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main />}></Route>
+          <Route path="/alarm" element={<Alarm />}></Route>
+          <Route path="/stopwatch" element={<StopWatch />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
