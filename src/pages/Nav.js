@@ -12,6 +12,7 @@ function Nav() {
                 <Link to="/alarm">Alarm</Link>
                 <Link to="/stopwatch">StopWatch</Link>
                 <Link to="/weather">Weather</Link>
+                <Link to="/guestbook">GuestBook</Link>
             </nav>
         </header>
     )

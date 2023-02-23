@@ -160,7 +160,7 @@ button:hover {
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     overflow: hidden;
-    transition: all .4s;
+    transition: all .3s;
     opacity: 0;
 
 }
