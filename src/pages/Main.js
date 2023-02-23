@@ -11,7 +11,7 @@ const desc = [
         "idx": "0",
         "path": "/Alarm",
         "head": "Alarm",
-        "desc": "시간과 내용을 설정하고, 설정한 시간이 되었을 때 알려줍니다.",
+        "desc": "설정한 시간이 되었을 때 알려줍니다.",
         "imgSrc": alarmclockImg,
         "videoSrc": alarmVideo,
         "fxTitle1": "1. 불러오기/저장/수정/삭제(CRUD)",
@@ -38,6 +38,38 @@ const desc = [
         "fxDesc3": "구간별 소요 시간을 확인할 수 있습니다.",
         "fxTitle4": "4. 이전 기록",
         "fxDesc4": "가장 최근에 사용한 기록을 볼 수 있습니다."
+    },
+    {
+        "idx": "2",
+        "path": "/Weather",
+        "head": "Weather",
+        "desc": "날씨를 확인할 수 있습니다.",
+        "imgSrc": '',
+        "videoSrc": '',
+        "fxTitle1": "1. 도시 검색",
+        "fxDesc1": '확인하고 싶은 도시를 검색합니다.',
+        "fxTitle2": "2. 저장",
+        "fxDesc2": "도시를 목록에 추가합니다.",
+        "fxTitle3": "3. 삭제",
+        "fxDesc3": "도시를 목록에서 삭제합니다.",
+        "fxTitle4": "4. 자세히 보기",
+        "fxDesc4": "해당 도시의 날씨를 자세히 보여줍니다."
+    },
+    {
+        "idx": "3",
+        "path": "/Guestbook",
+        "head": "Guestbook",
+        "desc": "방명록을 남길 수 있습니다.",
+        "imgSrc": '',
+        "videoSrc": '',
+        "fxTitle1": "1. 내용 입력",
+        "fxDesc1": '입력하고 싶은 내용을 등록합니다.',
+        "fxTitle2": "2. 암호화",
+        "fxDesc2": "수정 및 삭제에 필요한 암호는 등록한 본인만이 알 수 있습니다.",
+        "fxTitle3": "3. 수정 및 삭제",
+        "fxDesc3": "등록한 암호를 입력하면 수정과 삭제를 할 수 있습니다.",
+        "fxTitle4": "4. 권한",
+        "fxDesc4": "관리자는 방명록의 수정과 삭제 권한에서 자유롭습니다."
     }
 ]
 
@@ -115,7 +147,7 @@ function Main() {
                                     <img src={desc.imgSrc} alt={desc.imgSrc}></img>
 
                                     <h2>{desc.head}</h2>
-                                    <p>{desc.desc}</p>
+                                    <p title={desc.desc}>{desc.desc}</p>
 
                                 </Link>
                                 <div className='preview'><span className={desc.idx} onClick={(event) => {
@@ -126,7 +158,7 @@ function Main() {
                                 <ul>
                                     <li className="accordionBtn" onClick={(event) => {
                                         accordion(event);
-                                    }}>MORE</li>
+                                    }}>간략히 보기</li>
                                     <li>
                                         <ul className="accordionBucket">
                                             <li>{desc.fxTitle1}</li>
@@ -145,30 +177,7 @@ function Main() {
                     ))}
                 </div>
             </article>
-            {/* <article className='indexContainer second'>
-                <div className="flex">
-                    {options.map((options) => (
-                        <section key={options.idx} className="infoBlocks">
-                            <ul>
-                                <li className="accordion" onClick={(event) => {
-                                    accordion(event);
-                                }}>설명</li>
-                                <li className="accordionBucket">
-                                    <ul>
-                                        <li>{options.fxTitle1}</li>
-                                        <li>{options.fxDesc1}</li>
-                                        <li>{options.fxTitle2}</li>
-                                        <li>{options.fxDesc2}</li>
-                                        <li>주요 이슈</li>
-                                        <li>{options.afterStory}</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </section>
-                    ))}
 
-                </div>
-            </article> */}
         </>
     )
 }

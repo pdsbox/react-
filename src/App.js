@@ -11,7 +11,7 @@ import StopWatch from "./pages/StopWatch";
 function App() {
 
   return (
-    <><h1>시작</h1>
+    <>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         {/* <BrowserRouter> */}
         <Routes>

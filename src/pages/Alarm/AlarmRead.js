@@ -9,6 +9,7 @@ function AlarmRead(props) {
     const realTimeMin = realTime.getMinutes();
 
     //상태 변경 액션
+
     if (database.length > 0) {
         for (let i = 0; i < database.length; i++) {
             if (Number(database[i].hour) > realTimeHour) {
@@ -31,6 +32,7 @@ function AlarmRead(props) {
             }
         }
     }
+
     function fetchingOver(id, status) {
         fetch(`http://localhost:3001/alarm/${id}`, {
             method: "PATCH",

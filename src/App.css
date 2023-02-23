@@ -15,7 +15,7 @@ html {
 img {
     vertical-align: top;
     width: 90%;
-    height: 100%;
+    height: 75%;
 }
 
 a {
@@ -78,14 +78,14 @@ button:hover {
 }
 
 .indexContainer {
-    width: 66.67%;
+    width: 75%;
     min-width: 800px;
     margin: 0 auto;
     text-align: center;
 }
 
 .buckets {
-    width: 50%;
+    width: 25%;
 }
 
 .indexContainer.second {
