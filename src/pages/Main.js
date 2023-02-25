@@ -158,7 +158,7 @@ function Main() {
                                 <ul>
                                     <li className="accordionBtn" onClick={(event) => {
                                         accordion(event);
-                                    }}>간략히 보기</li>
+                                    }}>내용 보기</li>
                                     <li>
                                         <ul className="accordionBucket">
                                             <li>{desc.fxTitle1}</li>
